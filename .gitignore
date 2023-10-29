@@ -7,6 +7,12 @@
 /public/bundles/
 /var/
 /vendor/
+###
+/var/cache/
+/var/log/
+/node_modules/
+/public/build/
+.env
 ###< symfony/framework-bundle ###
 
 ###> phpunit/phpunit ###
