@@ -1,0 +1,62 @@
+/* variables.css */
+
+:root {
+    /*------------parametros del sidebar*/
+    --primaryColor: #5BB318;
+    --secondColor: #2B7A0B;
+  
+    --textColor-nav: #000000;
+    --textColor-nav-hover: #fff;
+  
+    --btn-hover-nav: rgba(0, 0, 0, 0.09);
+    --btn-hover-side: rgba(200, 200, 200, 0.2);
+  
+    --notificatio: #d9534f;
+  
+    --fuente_principal: "Roboto", sans-serif;
+    /*------------/parametros del sidebar*/
+  
+  
+    /*------------Sidebar*/
+    --sidebar-body-content-color: var(--secondColor);
+    --sidebar-header-color: var(--primaryColor);
+    --sidebar-header-bar-color: 1px solid var(--primaryColor);
+    --sidebar-header-txt-color: var(--textColor-nav-hover);
+    --sidebar-btn-icon-color: var(--textColor-nav);
+    --sidebar-btn-text-color: var(--textColor-nav);
+    --sidebar-btn-icon-activo-color: var(--textColor-nav-hover);
+    --sidebar-btn-text-activo-color: var(--textColor-nav-hover);
+    --sidebar-btn-icon-hover-color: var(--textColor-nav-hover);
+    --sidebar-btn-text-hover-color: var(--textColor-nav-hover);
+    --sidebar-btn-hover-background: var(--btn-hover-side);
+    /*------------/Sidebar*/
+  
+  
+    /*-------------topNavbar*/
+    --topNavbar-btn-hover: var(--btn-hover-nav);
+    --topNavbar-color: var(--primaryColor);
+    --icon-btn-nav: var(--textColor-nav-hover);
+    --icon-rigth-nav: var(--textColor-nav-hover);
+    /*------------/topNavbar*/
+  }
+  
+  /* Establecer un único tipo de letra para todos los elementos */
+  body {
+    font-family: "Roboto", sans-serif;
+    margin: 0; /* Elimina los márgenes predeterminados del cuerpo */
+    padding: 0; /* Elimina el relleno predeterminado del cuerpo */
+    background-size: cover; /* Ajusta el tamaño del fondo para cubrir toda la pantalla */
+    width: 100%; /* Ajusta el ancho al 100% del viewport */
+    height: 100vh; /* Ajusta la altura al 100% de la altura de la ventana gráfica (viewport) */
+  }
+  
+  /* Establecer un tipo de letra diferente para un elemento específico */
+  h1 {
+    font-family: "Roboto", sans-serif;
+  }
+  
+  p {
+    font-family: "Roboto", sans-serif;
+  }
+  
+  

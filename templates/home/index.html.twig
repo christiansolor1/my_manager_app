@@ -1,0 +1,587 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}Home
+{% endblock %}
+
+
+{% block body %}
+
+<!--------------------------------------------------------------Wrapper-->
+<div class="wrapper">
+	<div class="body-overlay"></div>
+	<!--------------------------------------------Aside-->
+
+	<!-- Sidebar  -->
+	<nav id="sidebar">
+		<div class="sidebar-header">
+			<h3><img src="image/logodev.png" class="img-fluid" /><span>My Proyect</span>
+			</h3>
+		</div>
+		<ul class="list-unstyled components">
+			<li class="active">
+				<a href="#" class="dashboard">
+					<i class="material-icons">dashboard</i>
+					<span>Dashboard</span>
+				</a>
+			</li>
+
+			<div class="small-screen navbar-display">
+				<li class="dropdown d-lg-none d-md-block d-xl-none d-sm-block">
+					<a href="#homeSubmenu0" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+						<i class="material-icons">notifications</i>
+						<span>
+							4 notification _nav</span>
+					</a>
+					<ul class="collapse list-unstyled menu" id="homeSubmenu0">
+						<li>
+							<a href="#">You have 5 new messages</a>
+						</li>
+						<li>
+							<a href="#">You're now friend with Mike</a>
+						</li>
+						<li>
+							<a href="#">Wish Mary on her birthday!</a>
+						</li>
+						<li>
+							<a href="#">5 warnings in Server Console</a>
+						</li>
+					</ul>
+				</li>
+
+				<li class="d-lg-none d-md-block d-xl-none d-sm-block">
+					<a href="#">
+						<i class="material-icons">apps</i>
+						<span>apps_nav</span>
+					</a>
+				</li>
+
+				<li class="d-lg-none d-md-block d-xl-none d-sm-block">
+					<a href="#">
+						<i class="material-icons">person</i>
+						<span>user_nav</span>
+					</a>
+				</li>
+
+				<li class="d-lg-none d-md-block d-xl-none d-sm-block">
+					<a href="#">
+						<i class="material-icons">settings</i>
+						<span>setting_nav</span>
+					</a>
+				</li>
+			</div>
+
+
+			<li class="dropdown">
+				<a href="#pageSubmenu2" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+					<i class="material-icons">apps</i>
+					<span>widgets</span>
+				</a>
+				<ul class="collapse list-unstyled menu" id="pageSubmenu2">
+					<li>
+						<a href="#">Page 1</a>
+					</li>
+					<li>
+						<a href="#">Page 2</a>
+					</li>
+					<li>
+						<a href="#">Page 3</a>
+					</li>
+				</ul>
+			</li>
+
+
+			<li class="dropdown">
+				<a href="#pageSubmenu7" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+					<i class="material-icons">settings</i>
+					<span>Parametros</span>
+
+
+				</a>
+				<ul class="collapse list-unstyled menu" id="pageSubmenu7">
+					<li>
+
+						<a href="{{ path('app_usuarios') }}" class="item_dropdown_list" id="usuariosLink">Gestión de
+							Usuarios</a>
+					</li>
+					<li>
+						<a class="item_dropdown_list" href="#">Page
+						</a>
+					</li>
+					<li>
+						{# <a class="item_dropdown_list" href="{{ path('app_logout') }}">
+							<i class="material-icons">logout</i>
+							<span>Cerrar sessión</span>
+						</a> #}
+					</li>
+				</ul>
+			</li>
+
+
+			<li class="">
+				<a href="#">
+					<i class="material-icons">library_books</i>
+					<span>Calender</span>
+				</a>
+			</li>
+
+
+		</ul>
+
+
+	</nav>
+
+
+	<!--------------------------------------------/Aside-->
+
+	<!-- Page Content  -->
+	<div id="content">
+
+		<!---------------------------------------------Navbar-->
+		<div class="top-navbar">
+			<nav class="navbar navbar-expand-lg fixed-top">
+				<div class="container-fluid">
+
+					<button type="button" id="sidebarCollapse" class="d-xl-block d-lg-block d-md-mone d-none">
+						<span class="material-icons">menu</span>
+					</button>
+
+
+					<a class="navbar-brand" href="#">
+						Dashboard
+					</a>
+
+
+					<button class="d-inline-block d-lg-none ml-auto more-button " type="button" data-toggle="collapse"
+						data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+						aria-expanded="false" aria-label="Toggle navigation">
+						<span class="material-icons">more_vert</span>
+					</button>
+
+					<div class="collapse navbar-collapse d-lg-block d-xl-block d-sm-none d-md-none d-none"
+						id="navbarSupportedContent">
+
+						<ul class="nav navbar-nav ml-auto ">
+
+
+							<li class="dropdown nav-item ">
+								<a href="#" class="nav-link" data-toggle="dropdown">
+									<span class="material-icons">notifications</span>
+									<span class="notification">4</span>
+								</a>
+								<ul class="dropdown-menu ">
+									<li>
+										<a href="#">Tienes nav</a>
+									</li>
+									<li>
+										<a href="#">cinco</a>
+									</li>
+									<li>
+										<a href="#">noficiacion</a>
+									</li>
+									<li>
+										<a href="#">5 warnings in Server Console</a>
+									</li>
+
+								</ul>
+							</li>
+
+
+							<li class="nav-item">
+								<a class="nav-link" href="#">
+									<i class="material-icons">apps</i>
+								</a>
+							</li>
+							<li class=" ">
+
+								<a href="#" class="nav-link" data-toggle="dropdown">
+									<i class="material-icons">person</i>
+								</a>
+
+								<ul class="dropdown-menu ">
+									<li>
+										<a href="#">
+											<span class="">Tienes un mensaje</span>
+										</a>
+									</li>
+
+									<li>
+
+										{# <a class="" href="{{ path('app_logout') }}">
+											<i class="material-icons">logout</i>
+											<span class="">Cerrar sessión</span>
+										</a> #}
+									</li>
+
+
+								</ul>
+							</li>
+
+							<li class="nav-item">
+								<a class="nav-link" href="#">
+									<span class="material-icons">settings</span>
+								</a>
+							</li>
+
+						</ul>
+					</div>
+				</div>
+			</nav>
+		</div>
+
+		<!--------------------------------------------/Navbar-->
+
+
+		<div class="main-content">
+			<div class="container_breadcrumb mt-5">
+
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb " style="background: #ffffff; border-radius: 10px;">
+						{% for label, route in breadcrumb %}
+						<li class="breadcrumb-item {% if loop.last %}active{% endif %}">
+							{% if not loop.last %}
+							<a href="{{ route | raw }}">{{ label | raw }}</a>
+							{% else %}
+							{{ label | raw }}
+							{% endif %}
+						</li>
+						{% endfor %}
+						<li class="breadcrumb-item active" aria-current="page">{{controller_name}}</li>
+					</ol>
+				</nav>
+
+
+				<div class="row ">
+					<div class="col-md-12">
+
+						<div class="contenidoTemplate">
+
+							{% block usuarios %}
+							{# Aquí se insertará el contenido de usuarios.html.twig si se extiende #}
+							{% endblock %}
+
+
+						</div>
+
+
+					</div>
+
+				</div>
+
+				<!--------------------------------------------footer-->
+
+				<footer class="footer">
+					<div class="container-fluid">
+						<div class="row">
+
+
+							<div class="col-md-6">
+								<nav class="d-flex">
+									<ul class="m-0 p-0">
+										<li>
+											<a href="#">
+												Home
+											</a>
+										</li>
+										<li>
+											<a href="#">
+												Company
+											</a>
+										</li>
+										<li>
+											<a href="#">
+												Portfolio
+											</a>
+										</li>
+										<li>
+											<a href="#">
+												Blog
+											</a>
+										</li>
+									</ul>
+								</nav>
+
+							</div>
+							<div class="col-md-6">
+								<p class="copyright d-flex justify-content-end">
+									&copy 2023 Diseñado por
+									<a href="#">
+										CS</a>
+									BootStrap Admin Dashboard
+								</p>
+							</div>
+						</div>
+					</div>
+				</footer>
+
+				<!--------------------------------------------/Aside-->
+
+
+			</div>
+
+
+		</div>
+
+	</div>
+
+</div>
+
+
+<!--------------------------------------------------------------/Wrapper-->
+
+<script>
+	$(document).ready(function () {
+		$('#sidebarCollapse').on('click', function () {
+			$('#sidebar').toggleClass('active');
+			$('#content').toggleClass('active');
+		});
+
+		$('.more-button,.body-overlay').on('click', function () {
+			$('#sidebar,.body-overlay').toggleClass('show-nav');
+		});
+
+	});
+
+	document.addEventListener('DOMContentLoaded', function () { // Selecciona el elemento body
+		var body = document.body;
+
+		// Cambia el color de fondo del body
+		body.style.background = 'var(--background_bodyColor)';
+		body.style.backgroundSize = 'cover';
+		body.style.backgroundAttachment = 'fixed';
+		body.style.backgroundRepeat = 'no-repeat';
+	});
+
+	$(document).ready(function () {
+		$("#abrirModal").click(function () {
+			$("#miModal").modal('show');
+		});
+	});
+
+	document.getElementById("guardar_modal").addEventListener("click", function () {
+		Swal.fire({
+			title: "¡Usuario registrado!",
+			text: "Se registro un nuevo usuario.",
+			icon: "success"
+		});
+	});
+	document.getElementById("edit_table").addEventListener("click", function () {
+		Swal.fire({
+			title: "¡Usuario Actualizado!",
+			text: "Los datos del usuario se actualizaron",
+			icon: "success"
+		});
+	});
+
+
+	// document.getElementById("cambiarContrasena").addEventListener("click", function () {
+	// Swal.fire({
+	// title: "Cambiar Contraseña",
+	// html: '<input type="password" id="nuevaContrasena" class="swal2-input" placeholder="Nueva Contraseña">',
+	// showCancelButton: true,
+	// confirmButtonText: "Guardar",
+	// cancelButtonText: "Cancelar",
+	// preConfirm: () => {
+	// const nuevaContrasena = document.getElementById('nuevaContrasena').value;
+	// // Aquí puedes realizar la lógica para cambiar la contraseña, como enviarla al servidor.
+	// // Por ejemplo, puedes usar una solicitud AJAX para enviar la nueva contraseña.
+	// }
+	// });
+	// });
+	document.getElementById("cambiarContrasena").addEventListener("click", function () {
+		Swal.fire({
+			title: "Cambiar Contraseña",
+			html: '<input type="password" id="nuevaContrasena" class="swal2-input" placeholder="Nueva Contraseña">',
+			icon: 'info',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Confirmar',
+			cancelButtonText: 'Cancelar', // Establece el texto del botón "Cancelar" en español
+			preConfirm: () => {
+				const nuevaContrasena = document.getElementById('nuevaContrasena').value;
+				// Aquí puedes realizar la lógica para cambiar la contraseña, como enviarla al servidor.
+				// Por ejemplo, puedes usar una solicitud AJAX para enviar la nueva contraseña.
+			}
+		}).then((result) => {
+			if (result.isConfirmed) {
+				Swal.fire('Contraseña cambiada', 'La contraseña del usuario se ha cambiado.', 'success')
+			}
+		});
+
+
+	});
+
+
+	const customSwitch3 = document.getElementById('customSwitch3');
+
+	customSwitch3.addEventListener('change', function () {
+		if (customSwitch3.checked) {
+			Swal.fire({
+				icon: 'success',
+				title: 'Usuario activado',
+				text: 'El interruptor está en estado activo'
+			});
+		} else {
+			Swal.fire({
+				icon: 'info',
+				title: 'Usuario desactivado',
+				text: 'El interruptor está en estado inactivo'
+			});
+		}
+	});
+
+
+	$(document).ready(function () { // Inicializa el DataTable
+		var table = $('#tablaEjemplo').DataTable({ // Configuración de DataTable
+		});
+
+		// Agrega un controlador de eventos clic a las filas
+		$('#tablaEjemplo tbody').on('click', 'tr', function () { // Desmarca todas las filas
+			table.$('tr.selected').removeClass('selected');
+			// Marca la fila seleccionada
+			$(this).addClass('selected');
+		});
+	});
+
+
+	// // Inicializa la tabla con DataTables y habilita opciones de filtrado y ordenamiento
+	// $(document).ready(function () {
+	// $('#tablaEjemplo').DataTable({
+	// "paging": true, // Habilita paginación
+	// "ordering": true, // Habilita ordenamiento
+	// "info": true // Muestra información de la tabla
+	// });
+	// });
+	document.getElementById('showDialog_delete_user').addEventListener('click', function () {
+
+		Swal.fire({
+			title: '¿Estás seguro de eliminar este usuario?',
+			text: "¡No podrás revertir esto!",
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Confirmar',
+			cancelButtonText: 'Cancelar' // Establece el texto del botón "Cancelar" en español
+		}).then((result) => {
+			if (result.isConfirmed) {
+				Swal.fire('¡Usuario Eliminado!', 'El usuario ha sido eliminado.', 'success')
+			}
+		});
+	});
+
+
+	document.addEventListener('DOMContentLoaded', function () {
+		const editButtons = document.querySelectorAll('.datatable_btn_detail');
+		const fechaHoy = new Date();
+		const fechaYHoraActual = new Date();
+		const fechaActual = fechaHoy.toISOString().split('T')[0];
+		const fechaYHoraActualString = fechaYHoraActual.toISOString().slice(0, 19).replace('T', ' ');
+
+		editButtons.forEach(function (button, index) {
+			button.addEventListener('click', function () {
+				const row = button.closest('tr'); // Encuentra la fila actual
+
+				const id = row.querySelector('td:nth-child(1)').textContent;
+				const usuario = row.querySelector('td:nth-child(2)').textContent;
+				const nombres = row.querySelector('td:nth-child(3)').textContent;
+				const apellidos = row.querySelector('td:nth-child(4)').textContent;
+				const correo = row.querySelector('td:nth-child(5)').textContent;
+				const genero = row.querySelector('td:nth-child(6)').textContent;
+				const rol = row.querySelector('td:nth-child(7)').textContent;
+				const estado = row.querySelector('.custom-control-input').checked ? 'Activo' :
+					'Inactivo';
+
+				// Crea un elemento de imagen
+				const imagenPerfil = document.createElement('img');
+				imagenPerfil.src = 'image/logodev.png'; // Ruta a la imagen de perfil
+				imagenPerfil.alt = 'Imagen de perfil';
+				imagenPerfil.className = 'imagen-de-perfil';
+				// Aplica estilos CSS para ajustar el tamaño de la imagen
+				imagenPerfil.style.width = '100px'; // Ancho en píxeles
+				imagenPerfil.style.height = '100px';
+				// Alto en píxeles
+
+				// Crea la estructura HTML de la ventana modal
+				const modalContent = document.createElement('div');
+				modalContent.appendChild(imagenPerfil);
+				modalContent.innerHTML += `<br><br><p><strong>ID:</strong> ${id}</p>
+                <p><strong>Usuario:</strong> ${usuario}</p>
+                <p><strong>Nombres:</strong> ${nombres}</p>
+                <p><strong>Apellidos:</strong> ${apellidos}</p>
+                <p><strong>Fecha de nacimiento:</strong> ${fechaActual}</p>
+                <p><strong>Fecha registro:</strong> ${fechaYHoraActualString}</p>
+                <p><strong>Ultimo acceso:</strong> ${fechaYHoraActualString}</p>
+                <p><strong>Correo:</strong> ${correo}</p>
+                <p><strong>Género:</strong> ${genero}</p>
+                <p><strong>Rol:</strong> ${rol}</p>
+                <p><strong>Estado:</strong> ${estado}</p>`;
+
+				Swal.fire({
+					title: 'Detalles del Usuario',
+					html: modalContent,
+					icon: 'info',
+					showCancelButton: true,
+					confirmButtonColor: '#ffc107 ',
+					cancelButtonColor: '#6c757d',
+					confirmButtonText: 'Editar',
+					cancelButtonText: 'Cerrar'
+				}).then((result) => {
+					if (result.isConfirmed) {
+						abrirModalEditar();
+					}
+				});
+			});
+		});
+	});
+
+
+	// Función para llenar la ventana modal con datos
+	function abrirModalEditar() { // Obtiene los datos de la fila que se quiere editar
+		const fila = $(this).closest("tr");
+		const edit_id = fila.find("td:eq(0)").text();
+		const edit_usuario = fila.find("td:eq(1)").text();
+		const edit_nombres = fila.find("td:eq(2)").text();
+		const edit_apellidos = fila.find("td:eq(3)").text();
+		const edit_correo = fila.find("td:eq(4)").text();
+		const edit_genero = fila.find("td:eq(5)").text();
+		const edit_rol = fila.find("td:eq(6)").text();
+
+		// Llena la ventana modal con los datos
+		$("#modalEditar #edit_id").text(edit_id);
+		$("#modalEditar #edit_usuario").val(edit_usuario);
+		$("#modalEditar #edit_nombres").val(edit_nombres);
+		$("#modalEditar #edit_apellidos").val(edit_apellidos);
+		$("#modalEditar #edit_correo").val(edit_correo);
+		$("#modalEditar #edit_genero").val(edit_genero);
+		$("#modalEditar #edit_rol").val(edit_rol);
+
+		// Abre la ventana modal
+		$("#modalEditar").modal("show");
+	}
+
+	// Asocia la función a los botones de "Editar"
+	$(".datatable_btn_edit").click(abrirModalEditar);
+
+	// ++++++++++++++++++++++++++++++++++++++++++++++++++++js de sidebar <script>
+	$(document).ready(function () {
+		$('#usuariosLink').on('click', function (e) {
+			e.preventDefault();
+
+			$.ajax({
+				url: $(this).attr('href'),
+				method: 'GET',
+				success: function (response) {
+					$('.contenidoTemplate').html(response); // Inserta la respuesta en el div
+				},
+				error: function (error) {
+					console.error('Error al cargar la gestión de usuarios');
+				}
+			});
+		});
+	});
+</script>
+
+
+{% endblock %}

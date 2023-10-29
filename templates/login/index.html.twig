@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello LoginController!
+{% endblock %}
+
+{% block body %}
+	<div class="page_login">
+		<p class="header_login text-center">INICIO DE SESIÓN</p>
+		<br>
+		<div class="box_login">
+			<div class="row imagelogo_login">
+				<div class="col-lg-12">
+					<img class="img-fluid" src="image/logodev.png" alt="Logo de empresa">
+
+					<br>
+					<br>
+
+				</div>
+			</div>
+			<form class="form_login" method="post">
+				<input class="inpt_text" type="text" placeholder="Usuario" name="usuarioI">
+				<input class="inpt_text" type="password" placeholder="Contraseña" name="claveI">
+				<input class="inpt_btn" type="submit" value="INICIAR SESIÓN">
+			</form>
+		</div>
+	</div>
+{% endblock %}
