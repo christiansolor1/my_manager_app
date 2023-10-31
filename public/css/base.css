@@ -1,10 +1,23 @@
 /* variables.css */
 
 :root {
+
+
     /*------------parametros del sidebar*/
-    --primaryColor: #5BB318;
-    --secondColor: #2B7A0B;
-  
+    --card-border-radius: calc(8px - 0px);
+    --primaryColor: #0C356A;
+    --secondColor: #279EFF;
+    --Colornumber3: #40F8FF;
+    --Colornumber4: #D5FFD0;
+    --Colornumber5: #1475c5;
+
+
+    --Colornumber6: #0d5b9b;
+    --Colornumber7: #40F8FF;
+    --Colornumber8: #D5FFD0;
+
+
+
     --textColor-nav: #000000;
     --textColor-nav-hover: #fff;
   

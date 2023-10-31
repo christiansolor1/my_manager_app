@@ -1,7 +1,185 @@
-/* Importa el archivo con las variables */
-@import 'base.css';
+/* ====================================================== ** ==================================================== */
+/* .............................. **............................... */
+/* ====================================================== *decripcion* ==================================================== */
+/*
+    auth-main: contenedor principal
+    auth-wrapper: contenedor secundario
+    auth-form: marco de un formulario
+    auth-page: marco de una pagina
+    form-log: es el marco que se usa para formularios de registros
+    
+*/
+:root {
+    /*==================================================variables.css====================================================*/
 
-/* ========================================= *OTROS* ========================================= */
+    /* .............................. *Colores*............................... */
+    --primaryColor: #0C356A;
+    --secondColor: #279EFF;
+    --Colornumber3: #40F8FF;
+    --Colornumber4: #D5FFD0;
+    --Colornumber5: #1475c5;
+
+
+    --Colornumber6: #0d5b9b;
+    --Colornumber7: #40F8FF;
+    --Colornumber8: #D5FFD0;
+    /* .............................. *Card*............................... */
+    --card-border-radius: calc(8px - 0px);
+    --btn-border-radius: calc(8px - 0px);
+    --main-background:#eef2f6;
+    --card-background:#fff;
+    --form-background:var(--card-border-radius);
+
+
+
+
+
+
+
+
+
+
+
+    --textColor-nav: #000000;
+    --textColor-nav-hover: #fff;
+
+    --btn-hover-nav: rgba(0, 0, 0, 0.09);
+    --btn-hover-side: rgba(200, 200, 200, 0.2);
+
+    --notificatio: #d9534f;
+
+    --fuente_principal: "Roboto", sans-serif;
+    /*------------/parametros del sidebar*/
+
+
+    /*------------Sidebar*/
+    --sidebar-body-content-color: var(--secondColor);
+    --sidebar-header-color: var(--primaryColor);
+    --sidebar-header-bar-color: 1px solid var(--primaryColor);
+    --sidebar-header-txt-color: var(--textColor-nav-hover);
+    --sidebar-btn-icon-color: var(--textColor-nav);
+    --sidebar-btn-text-color: var(--textColor-nav);
+    --sidebar-btn-icon-activo-color: var(--textColor-nav-hover);
+    --sidebar-btn-text-activo-color: var(--textColor-nav-hover);
+    --sidebar-btn-icon-hover-color: var(--textColor-nav-hover);
+    --sidebar-btn-text-hover-color: var(--textColor-nav-hover);
+    --sidebar-btn-hover-background: var(--btn-hover-side);
+    /*------------/Sidebar*/
+
+
+    /*-------------topNavbar*/
+    --topNavbar-btn-hover: var(--btn-hover-nav);
+    --topNavbar-color: var(--primaryColor);
+    --icon-btn-nav: var(--textColor-nav-hover);
+    --icon-rigth-nav: var(--textColor-nav-hover);
+    /*------------/topNavbar*/
+}
+
+body {
+    font-family: "Roboto", sans-serif;
+    background: var(--main-background);
+}
+
+/* ====================================================== *Styless* ==================================================== */
+/* .............................. *Contenedores* ............................... */
+/* contenedor principal */
+.auth-main {
+    background: var(--main-background);
+    padding: 3px;
+}
+
+/* contenedor secundario */
+.auth-wrapper {
+    background:var(--main-background);
+    /* border: 11px solid black; */
+    padding: 3px;
+}
+
+/* marco de una pagina */
+.auth-page {
+    background:var(--main-background);
+    padding: 10px;
+    border-radius: var(--card-border-radius);
+    -webkit-border-radius: var(--card-border-radius);
+    -moz-border-radius: var(--card-border-radius);
+    -ms-border-radius: var(--card-border-radius);
+    -o-border-radius: var(--card-border-radius);
+    -webkit-border-radius: var(--card-border-radius);
+}
+
+/* marco de un formulario */
+.auth-form {
+    padding: 10px;
+}
+
+.auth-header {
+    /* color: var(--primaryColor); */
+    margin-bottom: 40px;
+    cursor: pointer;
+}
+
+.txt-head-1 {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+
+
+/* .............................. *Cards* ............................... */
+.card {
+    border-radius: var(--card-border-radius);
+    -webkit-border-radius: var(--card-border-radius);
+    -moz-border-radius: var(--card-border-radius);
+    -ms-border-radius: var(--card-border-radius);
+    -o-border-radius: var(--card-border-radius);
+    -webkit-border-radius: var(--card-border-radius);
+    border: var(--card-background);
+}
+
+.card-body {
+    background: var(--card-background);
+    border-radius: var(--card-border-radius);
+    -webkit-border-radius: var(--card-border-radius);
+    -moz-border-radius: var(--card-border-radius);
+    -ms-border-radius: var(--card-border-radius);
+    -o-border-radius: var(--card-border-radius);
+}
+
+.card-body .rl {
+    font-size: 0.85rem;
+    /* background: yellow; */
+    /* border: 1px solid black;  */
+    /* font-weight: bold; */
+}
+
+
+.frm-register {
+    position: relative;
+    border-radius: var(--card-border-radius);
+    z-index: 1;
+    background: var(--form-background);
+    max-width: 360px;
+    margin: 0 auto 100px;
+    text-align: center;
+    padding: 0;
+    /*box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+    */
+    -webkit-border-radius: 15px;
+    -moz-border-radius: var(--card-border-radius);
+    -ms-border-radius: var(--card-border-radius);
+    -o-border-radius: var(--card-border-radius);
+    -webkit-border-radius: var(--card-border-radius);
+}
+
+
+
+
+
+
+.frm-register .card .card-body .rl label {
+    font-size: 10;
+}
+
 
 .no-select {
     user-select: none;
@@ -9,32 +187,7 @@
     margin-bottom: 15px;
 }
 
-.containe_r {
-    background: #ffffff;
-    padding-top: 10px;
-    padding-right: 10px;
-    padding-bottom: 10px;
-    padding-left: 10px;
-}
-
-.container_view {
-    background: #eef2f6;
-    /* border: 11px solid black; */
-    border-radius: 10px;
-    padding-top: 15px;
-    padding-right: 15px;
-    padding-bottom: 15px;
-    padding-left: 15px;
-}
-
-.container_view nav .breadcrumb {
-    /* border: 2em solid rgb(202, 10, 10); */
-    background: #ffffff;
-}
-
-
-
-.dropdown-menu li > a {
+.dropdown-menu li>a {
     font-size: 13px;
     padding: 10px 20px;
     margin: 0 5px;
@@ -47,7 +200,7 @@
     -o-border-radius: 2px;
 }
 
-navbar-nav > .active > a:focus {
+navbar-nav>.active>a:focus {
     color: #FFFFFF;
     background-color: rgba(0, 0, 0, 0.08);
 }
@@ -56,8 +209,10 @@ navbar-nav > .active > a:focus {
 .navbar-nav li a {
     position: relative;
     display: block;
-    padding: 10px 15px!important;
+    padding: 10px 15px !important;
 }
+
+
 
 /* ========================================= *LOGIN* ========================================= */
 
@@ -73,14 +228,6 @@ navbar-nav > .active > a:focus {
     padding-left: 15px;
 }
 
-.header_login {
-    color: var(--sidebar-primaryColor);
-    font-size: 30px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    cursor: pointer;
-}
-
 .imagelogo_login {
     max-width: 100px;
     /* Establece el ancho máximo de la imagen en píxeles */
@@ -90,20 +237,23 @@ navbar-nav > .active > a:focus {
     cursor: pointer;
 }
 
+
 .form_login {
     position: relative;
-    border-radius: 10px;
-    z-index: 1;
+    border-radius: var(--card-border-radius);
+    z-index: 2;
     background: var(--sidebar-form-login);
     max-width: 370px;
     margin: 0 auto 100px;
     padding: 20px;
     text-align: center;
-    /* box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24); */
+    /*box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+    */
     -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    -ms-border-radius: 10px;
-    -o-border-radius: 10px;
+    -moz-border-radius: var(--card-border-radius);
+    -ms-border-radius: var(--card-border-radius);
+    -o-border-radius: var(--card-border-radius);
+    -webkit-border-radius: var(--card-border-radius);
 }
 
 .form_login .inpt_text_login {
@@ -122,6 +272,7 @@ navbar-nav > .active > a:focus {
 .inpt_text_login::placeholder {
     color: black;
 }
+
 .form_login .form-group .btn-outline-secondary {
     background: var(--sidebar-input-text-login);
     border: 0;
@@ -133,7 +284,7 @@ navbar-nav > .active > a:focus {
 .form_login .input-group:active,
 .form_login .input-group:focus {
     background: var(--sidebar-input-text-login-hover);
-    /* border-color: var(--sidebar-primaryColor);;
+    /* border-color: var(--primaryColor);;
     outline: 0;
     box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, .25);
     border: 1px solid black; */
@@ -142,7 +293,7 @@ navbar-nav > .active > a:focus {
 .form_login .inpt_btn_login {
     outline: 0;
     border-radius: 10px;
-    background: var(--sidebar-primaryColor);
+    background: var(--primaryColor);
     /* box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px -1px, rgba(0, 0, 0, 0.14) 0px 4px 5px 0px, rgba(0, 0, 0, 0.12) 0px 1px 10px 0px; */
     width: 100%;
     border: 0;
@@ -165,7 +316,7 @@ navbar-nav > .active > a:focus {
 .olvidaste_pass {
     text-decoration: none;
     font-size: 14px;
-    color: var(--sidebar-primaryColor);
+    color: var(--primaryColor);
     padding-left: 10px;
 }
 
@@ -209,14 +360,14 @@ navbar-nav > .active > a:focus {
 
 .input-group:hover {
     background: var(--sidebar-input-text-login-hover);
-    border-color: var(--sidebar-primaryColor);
+    border-color: var(--primaryColor);
     outline: 0;
     box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, .25);
 }
 
 #customInputGroup:focus-within {
     background: var(--sidebar-input-text-login-hover);
-    border-color: var(--sidebar-primaryColor);
+    border-color: var(--primaryColor);
     outline: 0;
     box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, .25);
 }
@@ -267,36 +418,35 @@ navbar-nav > .active > a:focus {
 
 .container_table {
     width: 100%;
-    background-color: #f5f5f5;
-    padding: 1rem;
-    border: 1px solid #e2e2e2;
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    -webkit-border-radius: 10px;
+   
+
+    /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
+    /* -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     -ms-border-radius: 10px;
-    -o-border-radius: 10px;
+    -o-border-radius: 10px; */
 }
 
 .container_table h2 {
     text-align: center;
     font-size: 24px;
-    color: var(--sidebar-primaryColor);
+    color: var(--primaryColor);
     margin-bottom: 20px;
 }
 
 /* Estilo para la tabla */
-.container_table table {
+table {
+    /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);  */
     width: 100%;
     border-collapse: collapse;
     border: 1px solid #e2e2e2;
     background-color: #fff;
-    border-radius: 10px;
+    border-radius: var(--card-border-radius);
     overflow: hidden;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    -ms-border-radius: 10px;
-    -o-border-radius: 10px;
+    -webkit-border-radius: var(--card-border-radius);
+    -moz-border-radius: var(--card-border-radius);
+    -ms-border-radius: var(--card-border-radius);
+    -o-border-radius: var(--card-border-radius);
 }
 
 /* Estilo para las celdas */
@@ -305,6 +455,7 @@ navbar-nav > .active > a:focus {
     padding: 0.5rem;
     text-align: left;
 }
+
 .container_table td {
     border: 1px solid #e2e2e2;
     padding: 0.5rem;
@@ -313,16 +464,21 @@ navbar-nav > .active > a:focus {
 
 /* Estilo para el encabezado de la tabla */
 .container_table th {
-    background-color: var(--sidebar-primaryColor);
-    color: white;
+    /* background-color: var(--primaryColor); */
+
+    font-size: 18px;
+    color: #fff;
+    border: none;
+    background-color: #1475c5;
 }
+/* .............................. *botones data table* ............................... */
 
 .container_table .datatable_btn_add {
     border-radius: 10px;
     font-size: 20px;
     background-color: #28a745 !important;
     color: white;
-    border: 0.15em solid white;
+    /* border: 0.15em solid white; */
     box-shadow: 0 0 0.2em #444;
     box-sizing: border-box;
     display: flex;
@@ -351,7 +507,7 @@ navbar-nav > .active > a:focus {
     font-size: 20px;
     background-color: #ffc107 !important;
     color: white;
-    border: 0.15em solid white;
+    /* border: 0.15em solid white; */
     box-shadow: 0 0 0.2em #444;
     box-sizing: border-box;
     display: flex;
@@ -377,7 +533,7 @@ navbar-nav > .active > a:focus {
     font-size: 20px;
     background-color: #dc3545 !important;
     color: white;
-    border: 0.15em solid white;
+    /* border: 0.15em solid white; */
     box-shadow: 0 0 0.2em #444;
     box-sizing: border-box;
     display: flex;
@@ -403,7 +559,7 @@ navbar-nav > .active > a:focus {
     font-size: 20px;
     background-color: #6c757d !important;
     color: white;
-    border: 0.15em solid white;
+    /* border: 0.15em solid white; */
     box-shadow: 0 0 0.2em #444;
     box-sizing: border-box;
     display: flex;
@@ -423,7 +579,29 @@ navbar-nav > .active > a:focus {
 }
 
 
-.table .btn_remove_row {
+
+.item_row {
+    display: inline-block;
+    margin-right: px;
+    margin-bottom: 5px;
+    padding: 3px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #4171d165;
+    /* Ajuste para que el fondo se ajuste al tamaño del texto */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+}
+
+/* Para eliminar el margen derecho del último elemento */
+.item_row:last-child {
+    margin-right: 0;
+}
+
+
+/* .item_row {
     border-radius: 10px;
     font-size: 12px;
     background-color: #4171d165 !important;
@@ -432,7 +610,7 @@ navbar-nav > .active > a:focus {
     display: flex;
     align-items: center;
     justify-content: center;
-}
+} */
 
 .table .btn_remove_datatable::before {
     content: "\e15b";
@@ -447,7 +625,7 @@ navbar-nav > .active > a:focus {
     font-size: 20px;
     background-color: #17a2b8 !important;
     color: white;
-    border: 0.15em solid white;
+    /* border: 0.15em solid white; */
     box-shadow: 0 0 0.2em #444;
     box-sizing: border-box;
     display: flex;
@@ -491,21 +669,26 @@ navbar-nav > .active > a:focus {
 
 /* Estilo de fondo para filas seleccionadas */
 table.dataTable tbody tr.selected {
-    background-color: #2f87e65d; /* Amarillo */
+    background-color: #2f87e65d;
+    /* Amarillo */
 }
 
 /* Estilo de fondo para filas no seleccionadas en el contexto de "table-striped" */
 table.dataTable tbody tr:not(.selected):nth-child(even) {
-    background-color: #f5f5f5; /* Color de fila par del "table-striped" */
+    background-color: #f5f5f5;
+    /* Color de fila par del "table-striped" */
 }
 
 table.dataTable tbody tr:not(.selected):nth-child(odd) {
-    background-color: #ffffff; /* Color de fila impar del "table-striped" */
+    background-color: #ffffff;
+    /* Color de fila impar del "table-striped" */
 }
+
 /* Estilo de "dedo" al pasar el cursor por las filas */
 table.dataTable tbody tr:hover {
     cursor: pointer;
 }
+
 /* Estilo de "dedo" al pasar el cursor por las celdas de encabezado */
 table.dataTable thead th:hover {
     cursor: pointer;
@@ -513,19 +696,19 @@ table.dataTable thead th:hover {
 
 /* ========================================= *TEMPLATE ADMIN* ========================================= */
 /* ......................................... -TOP NAVBAR- ......................................... */
-.navbar-nav > li.show .dropdown-menu {
+.navbar-nav>li.show .dropdown-menu {
     transform: translate3d(0, 0, 0);
-	opacity:1;
-	visibility:visible;
+    opacity: 1;
+    visibility: visible;
     text-align: center;
 }
 
 /*barra menu*/
 .navbar {
     position: relative;
-    z-index: 1;
+    z-index: 3;
     padding: 7px;
-    background-color: var(  --sidebar-primaryHoverColor);
+    background-color: var(--secondColor);
 }
 
 /*color de btn menu*/
@@ -622,12 +805,13 @@ table.dataTable thead th:hover {
     top: 0;
     bottom: 0;
     left: 0;
-    z-index: 2;
+    z-index: 4;
     width: 250px;
     overflow: auto;
     transition: all 0.3s;
-    background: var(--sidebar-primaryColor);
+    background: var(--primaryColor);
     box-shadow: 0 10px 30px -12px rgb(0 0 0 / 42%), 0 4px 25px 0px rgb(0 0 0 / 12%), 0 8px 10px -5px rgb(0 0 0 / 20%);
+
 }
 
 /*-------------------------------logo header*/
@@ -715,6 +899,7 @@ table.dataTable thead th:hover {
     color: #eef2f6;
     margin-left: 10px;
 }
+
 #sidebar ul li.drodown {
     position: sticky;
 }
@@ -760,7 +945,7 @@ table.dataTable thead th:hover {
     border-bottom-right-radius: 15px;
   } */
 
-  .item_dropdown_list {
+.item_dropdown_list {
     margin-left: 20px;
 }
 
@@ -772,7 +957,7 @@ table.dataTable thead th:hover {
     opacity: 1;
     display: block;
     visibility: visible;
-    z-index: 15;
+    z-index: 5;
 }
 
 .sidebar-out {
@@ -780,39 +965,42 @@ table.dataTable thead th:hover {
     display: block;
     bottom: 0;
     background-color: var(--sidebar-body-content-color);
-    color: var(--sidebar-btn-text-color); /* Color de texto según tus preferencias */
+    color: var(--sidebar-btn-text-color);
+    /* Color de texto según tus preferencias */
     width: 250px;
     border: 0;
-    z-index: 999; /* Ajusta el valor de z-index según sea necesario para que esté sobre otros elementos */
+    z-index: 6;
+    /* Ajusta el valor de z-index según sea necesario para que esté sobre otros elementos */
     /* text-align: center; */
-     /* Centra el contenido horizontalmente */
+    /* Centra el contenido horizontalmente */
     padding-top: 30px;
     padding-bottom: 20px;
     border-style: solid;
-    border-color: hsla(0,0%,100%,.2);
+    border-color: hsla(0, 0%, 100%, .2);
     border-top-width: 1px;
-    
-    
-    
-    
-    
+
+
+
+
+
 }
 
 /* ......................................... -CONTENIDO- ......................................... */
 
 #content {
-    position: relative;
+    /* position: relative; */
     transition: all 0.3s;
     background-color: #EEEEEE;
 }
 
 .main-content {
     padding: 10px 20px 0px 20px;
-    position: relative;
+    /* position: relative; */
     width: 100%;
     height: 100vh;
-    
+
 }
+
 /* ========================================= *FOOTER* ========================================= */
 
 
@@ -822,7 +1010,7 @@ table.dataTable thead th:hover {
 
 footer {
     padding: 10px 0;
-    position: relative;
+    /* position: relative; */
     width: 100%;
 }
 
@@ -838,7 +1026,7 @@ footer ul li a {
     text-transform: uppercase;
     border-radius: 3px;
     text-decoration: none;
-    position: relative;
+    /* position: relative; */
     display: block;
 }
 
@@ -856,10 +1044,10 @@ footer .copyright {
     #sidebar.active {
         width: 80px;
         height: 100% !important;
-        position: absolute !important;
+        /* position: absolute !important; */
         overflow: visible !important;
         top: 0 !important;
-        z-index: 666;
+        z-index: 7;
         float: left !important;
         bottom: 0 !important;
     }
@@ -882,7 +1070,7 @@ footer .copyright {
 
     #content {
         width: calc(100% - 250px);
-        position: relative;
+        /* position: relative; */
         float: right;
         transition: all 0.3s;
         background-color: #EEEEEE;
@@ -893,7 +1081,7 @@ footer .copyright {
     }
 
     #sidebar.active .menu {
-        position: absolute;
+        /* position: absolute; */
         left: 81px;
         background-color: #1b5803;
         border-radius: 15px;
@@ -927,10 +1115,10 @@ footer .copyright {
 
 @media only screen and (max-width:992px) {
     #sidebar {
-        position: fixed;
+        /* position: fixed; */
         top: 0;
         bottom: 0;
-        z-index: 10;
+        z-index: 9;
         width: 250px;
         transform: translatex(-100%);
         transition: all 150ms linear;
@@ -938,7 +1126,7 @@ footer .copyright {
     }
 
     .body-overlay {
-        position: fixed;
+        /* position: fixed; */
         top: 0;
         left: 0;
         width: 100%;
@@ -946,9 +1134,10 @@ footer .copyright {
         display: none;
         visibility: hidden;
         opacity: 0;
-        z-index: 3;
+        z-index: 10;
         transition: all 150ms linear;
         background-color: rgba(0, 0, 0, 0.5);
     }
 }
+
 /* ========================================= ** ========================================= */

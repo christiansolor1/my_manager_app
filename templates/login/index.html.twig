@@ -1,27 +1,56 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello LoginController!
+{% block title %}Login
 {% endblock %}
 
 {% block body %}
-	<div class="page_login">
-		<p class="header_login text-center">INICIO DE SESIÓN</p>
-		<br>
-		<div class="box_login">
-			<div class="row imagelogo_login">
-				<div class="col-lg-12">
-					<img class="img-fluid" src="image/logodev.png" alt="Logo de empresa">
+	<div class="auth-main">
+		<div class="auth-wrapper frm-register">
+			<div class="auth-form">
+				<div class="card">
+					<div class="card-body">
+                    
+						<a href="#" class="d-flex justify-content-center">
+							<img class="imagelogo_login" src="images/logo.svg" alt="image">
+						</a>
+						<div class="row">
+							<div class="d-flex justify-content-center">
+								<div class="auth-header txt-head-1">
+									<h2 class=" text-secondary ">
+										<b>My Manage App</b>
+									</h2>
+									<p class="">Ingresa tus credenciales</p>
+								</div>
+							</div>
+						</div>
+						
+						
+						<div class="form-floating mb-3">
+							<input type="email" class="form-control inpt_text_login" id="floatingInput" placeholder="Email address / Username">
+							<label for="floatingInput">Email address / Username</label>
+						</div>
+						<div class="form-floating mb-3">
+							<input type="email" class="form-control" id="floatingInput1" placeholder="Password">
+							<label for="floatingInput1">Password</label>
+						</div>
+						<div class="d-flex mt-1 justify-content-between rl">
+							<div class="form-check">
+								<input class="form-check-input input-primary" type="checkbox" id="customCheckc1" checked="">
+								<label class="form-check-label text-muted rl" for="customCheckc1">Remember me</label>
+							</div>
+                            <a href="url_para_reiniciar_contraseña">¿Has olvidado tu contraseña?</a>
 
-					<br>
-					<br>
-
+						</div>
+						<div class="d-grid mt-4">
+							<button type="button" class="btn btn-secondary">Iniciar sesión</button>
+                            <input class="inpt_btn_login" type="submit" value="INICIAR SESIÓN">
+						</div>
+						<hr>
+						<h5 class="d-flex justify-content-center">¿No tienes una cuenta?</h5>
+					</div>
 				</div>
 			</div>
-			<form class="form_login" method="post">
-				<input class="inpt_text" type="text" placeholder="Usuario" name="usuarioI">
-				<input class="inpt_text" type="password" placeholder="Contraseña" name="claveI">
-				<input class="inpt_btn" type="submit" value="INICIAR SESIÓN">
-			</form>
 		</div>
 	</div>
+
 {% endblock %}

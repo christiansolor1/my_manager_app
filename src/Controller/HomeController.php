@@ -26,8 +26,11 @@ class HomeController extends AbstractController
     {
 
         $breadcrumb = [
+            // '<a href="' . $this->generateUrl('app_home') . '"><i class="material-icons">home</i></a>' => $this->generateUrl('app_home'),
             '<i class="material-icons">home</i>' => $this->generateUrl('app_home'),
         ];
+        
+        
 
         $usuarios = $this->em->getRepository(Usuarios::class)->findAll();
 

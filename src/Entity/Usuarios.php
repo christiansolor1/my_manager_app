@@ -35,7 +35,7 @@ class Usuarios implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $nombres = null;
 
     #[ORM\Column(length: 50)]
-    private ?string $apellido = null;
+    private ?string $apellidos = null;
 
     #[ORM\ManyToOne(inversedBy: 'estado_cuenta_id')]
     #[ORM\JoinColumn(nullable: false)]
@@ -149,14 +149,14 @@ class Usuarios implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getApellido(): ?string
+    public function getApellidos(): ?string
     {
-        return $this->apellido;
+        return $this->apellidos;
     }
 
-    public function setApellido(string $apellido): static
+    public function setApellidos(string $apellidos): static
     {
-        $this->apellido = $apellido;
+        $this->apellidos = $apellidos;
 
         return $this;
     }

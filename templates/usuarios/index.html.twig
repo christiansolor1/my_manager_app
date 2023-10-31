@@ -6,403 +6,714 @@
 
 {% block body %}
 
-<div class="containe_r">
-	<div class="container_view ">
-		<div class="container_breadcrumb mt-5">
+<div class="auth-main">
+	<div class="auth-wrapper ">
+		<div class="auth-page">
 
+			<div class="container_breadcrumb mt-5">
 
-			<a href="{{ path('app_logout') }}">Logout</a>
+				{# <a href="{{ path('app_logout') }}">Logout</a> #}
 
-			<nav aria-label="breadcrumb">
-				<ol class="breadcrumb " style="background: #ffffff; border-radius: 10px;">
-					{% for label, route in breadcrumb %}
-					<li class="breadcrumb-item {% if loop.last %}active{% endif %}">
-						{% if not loop.last %}
-						<a href="{{ route | raw }}">{{ label | raw }}</a>
-						{% else %}
-						{{ label | raw }}
-						{% endif %}
-					</li>
-					{% endfor %}
-					<li class="breadcrumb-item active" aria-current="page">{{breadcrumb_name}}</li>
-				</ol>
-			</nav>
-
-		</div>
-		<!-- El resto de tu contenido aquí -->
-
-
-		<div class="container_table">
-
-			<div class="d-flex justify-content-between">
-				<h2>Gestión de usuarios</h2>
-				<div>
-					<a id="abrirModal" class="btn btn-sm btn-success datatable_btn_add" href="#" title="Agregar">
-						<span>Add Usuario</span>
-					</a>
-				</div>
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb " style="background: #ffffff; border-radius: 10px;">
+						{% for label, route in breadcrumb %}
+						<li class="breadcrumb-item {% if loop.last %}active{% endif %}">
+							{% if not loop.last %}
+							<a href="{{ route | raw }}">{{ label | raw }}</a>
+							{% else %}
+							{{ label | raw }}
+							{% endif %}
+						</li>
+						{% endfor %}
+						<li class="breadcrumb-item active" aria-current="page">{{breadcrumb_name}}</li>
+					</ol>
+				</nav>
 
 			</div>
-			<br>
+			<!-- El resto de tu contenido aquí -->
 
-			<!-- Agregar clase 'table-responsive' para hacer la tabla responsive -->
-			<div class="table-responsive">
-				<table id="dataTable_usuarios" class="table table-striped table-bordered display nowrap "
-					style="width:100%">
-					<thead>
-						<tr>
-							<th>ID</th>
-							<th>Correo</th>
-							<th>Rol</th>
-							<th>Usuario</th>
-							<th>Nombres</th>
-							<th>Apellidos</th>
-							<th>Estado</th>
-							<th>Genero</th>
-							<th>Nacimiento</th>
-							<th>Registro</th>
-							<th>Acceso</th>
-							<th>Acciones</th>
+			<div class="card">
+				<div class="card-body">
+					<div class="container_table">
 
-						</tr>
-					</thead>
-					<tbody>
-						<!-- Los datos se cargarán dinámicamente aquí -->
-
-					</tbody>
-				</table>
-
-				<!-- ================================Modal  user====================================-->
-
-				<!--  new -->
-				<div class="modal fade" id="miModal" tabindex="-1" role="dialog" aria-labelledby="miModalLabel"
-					aria-hidden="true">
-					<div class="modal-dialog modal-dialog-centered modal-lg">
-						<div class="modal-content">
-
-
-							<div class="modal-header">
-								<h2 class="modal-title" id="miModalLabel">Nuevo Usuario</h2>
-								<button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							{# {{ form(form) }} #}
-						</div>
-					</div>
-				</div>
-
-				<!-- Modal edit-->
-				<div class="modal" tabindex="-1" role="dialog" id="modalEditarUsuario">
-					<div class="modal-dialog" role="document">
-						<div class="modal-content">
-
-							<div class="modal-header">
-								<h2 class="modal-title">Editar Usuario</h2>
-								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
+						<div class="d-flex justify-content-between">
+							<h2>Gestión de usuarios</h2>
+							<div>
+								<a id="abrirModal" class="btn btn-sm btn-success datatable_btn_add" href="#"
+									title="Agregar">
+									<span>Add Usuario</span>
+								</a>
 							</div>
 
-							<form method="post">
-								<div class="modal-body">
-									<div class="container ">
-										<div class="row">
-											<div class="col-md-12 text-center">
-												<h3>Datos del Usuario
-													<span class="data_id_datatable" id="edit_id"></span>
-												</h3>
-												<br>
-
-
-											</div>
-										</div>
-
-										<div class="row">
-											<div class="col-md-6">
-												<div class="form-group">
-													<label for="username">Username</label>
-													<div class="input-group mb-3">
-														<input class="form-control" type="text" id="edit_usuario"
-															placeholder="Username..." name="username" required readonly>
-													</div>
-												</div>
-
-
-												<div class="form-group">
-													<label for="password">Contraseña</label>
-													<div class="input-group mb-3">
-														<input class="form-control" type="password" id="edit_password"
-															placeholder="Contraseña del usuario..." name="password"
-															required>
-													</div>
-												</div>
-
-												<div class="form-group">
-													<label for="nombres">Nombres</label>
-													<div class="input-group mb-3">
-														<input class="form-control" type="text" id="edit_nombres"
-															placeholder="Nombres del usuario..." name="nombres"
-															required>
-													</div>
-												</div>
-
-												<div class="form-group">
-													<label for="apellidos">Apellidos</label>
-													<div class="input-group mb-3">
-														<input class="form-control" type="text" id="edit_apellidos"
-															placeholder="Apellidos del usuario..." name="apellidos"
-															required>
-													</div>
-												</div>
-
-												<div class="form-group">
-													<label for="fechaNacimiento">Fecha de Nacimiento</label>
-													<div class="input-group mb-3">
-														<input type="date" class="form-control" id="fechaNacimiento"
-															name="fechaNacimiento" required>
-													</div>
-												</div>
-											</div>
-
-											<div class="col-md-6">
-												<div class="form-group">
-													<label for="correo">Correo electrónico</label>
-													<div class="input-group mb-3">
-														<input class="form-control" type="email" id="edit_correo"
-															placeholder="Correo Electrónico del usuario..."
-															name="correo" required>
-													</div>
-												</div>
-
-												<div class="form-group">
-													<label for="genero">Género</label>
-													<div class="input-group mb-3">
-														<select class="form-control" id="edit_genero"
-															name="edit_genero">
-															<option value="Masculino">Masculino</option>
-															<option value="Femenino">Femenino</option>
-															<option value="Otro">Otro</option>
-														</select>
-													</div>
-												</div>
-
-												<div class="form-group">
-													<label for="estado_usuario">Estado del Usuario</label>
-													<div class="input-group mb-3">
-														<select class="form-control" id="edit_estado_usuario"
-															name="estado_usuario">
-															<option value="activo">Activo</option>
-															<option value="inactivo">Inactivo</option>
-														</select>
-													</div>
-												</div>
-
-												<div class="form-group">
-													<label for="estado_usuario">Rol de usuario</label>
-													<div class="input-group mb-3">
-														<select class="form-control" id="edit_rol_usuario"
-															name="rol_usuario">
-															<option value="activo">Administrador</option>
-															<option value="inactivo">Cliente</option>
-														</select>
-													</div>
-												</div>
-												<div class="form-group">
-													<label for="imagen">Selecciona una imagen</label>
-													<div class="input-group mb-3">
-														<input type="file" class="form-control-file" id="imagen"
-															name="imagen">
-													</div>
-
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="modal-footer">
-									<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-									{# <button id="edit_table" type="button" class="btn btn-primary">Guardar Cambios</button> #}
-									<button id="edit_table" type="button" class="btn btn-primary"
-										data-dismiss="modal">Guardar
-										Cambios</button>
-
-								</div>
-							</form>
-							<!--knjkljhoiughouihugjuhgkjgkujhgjgkuygv-->
-
-
 						</div>
+						<br>
+
+						<!-- Agregar clase 'table-responsive' para hacer la tabla responsive -->
+						<div class="table-responsive">
+							<table id="dataTable_usuarios" class="table table-striped table-bordered display nowrap "
+								style="width:100%">
+								<thead>
+									<tr>
+										<th class="text-center">#</th>
+										<th class="text-center">ID</th>
+										<th class="text-center">Correo</th>
+										<th class="text-center">Rol</th>
+										<th class="text-center">Usuario</th>
+										<th class="text-center">Nombres</th>
+										<th class="text-center">Apellidos</th>
+										<th class="text-center">Estado</th>
+										<th class="text-center">Genero</th>
+										<th class="text-center">Nacimiento</th>
+										<th class="text-center">Registro</th>
+										<th class="text-center">Acceso</th>
+										<th class="text-center">Acciones</th>
+
+									</tr>
+								</thead>
+								<tbody>
+									<!-- Los datos se cargarán dinámicamente aquí -->
+
+								</tbody>
+							</table>
+						</div>
+
+
 					</div>
 				</div>
 
 			</div>
 
-
 		</div>
-
 
 	</div>
 </div>
 </div>
+
 <a id="cambiarContrasena" class="btn btn-sm btn-secondary datatable_btn_pass" href="#"
 	title="Restablecer contraseña"></a>
 <br>
 
+
+
+
+
+
+
+
+<!-- ================================Modal  user====================================-->
+
+<!--  new -->
+<div class="modal fade" id="miModal" tabindex="-1" role="dialog" aria-labelledby="miModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-lg">
+		<div class="modal-content">
+
+
+			<div class="modal-header">
+				<h2 class="modal-title" id="miModalLabel">Nuevo Usuario</h2>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			{# {{ form(form) }} #}
+			<form method="post">
+				<div class="modal-body">
+					<div class="container ">
+						<div class="row">
+							<div class="col-md-12 text-center">
+								<h3>Datos del Usuario
+									<span class="data_id_datatable" id="edit_id"></span>
+								</h3>
+								<br>
+
+
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="username">Username</label>
+									<div class="input-group mb-3">
+										<input class="form-control" type="text" id="username" placeholder="Username..."
+											name="username" required>
+									</div>
+								</div>
+
+
+								<div class="form-group">
+									<label for="password">Contraseña</label>
+									<div class="input-group mb-3">
+										<input class="form-control" type="password" id="password"
+											placeholder="Contraseña del usuario..." name="password" required>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="nombres">Nombres</label>
+									<div class="input-group mb-3">
+										<input class="form-control" type="text" id="nombres"
+											placeholder="Nombres del usuario..." name="nombres" required>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="apellidos">Apellidos</label>
+									<div class="input-group mb-3">
+										<input class="form-control" type="text" id="apellidos"
+											placeholder="Apellidos del usuario..." name="apellidos" required>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="fechaNacimiento">Fecha de Nacimiento</label>
+									<div class="input-group mb-3">
+										<input type="date" class="form-control" id="fechaNacimiento"
+											name="fechaNacimiento" required>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="correo">Correo electrónico</label>
+									<div class="input-group mb-3">
+										<input class="form-control" type="email" id="email"
+											placeholder="Correo Electrónico del usuario..." name="correo" required>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="genero">Género</label>
+									<div class="input-group mb-3">
+										<select class="form-control" id="edit_genero" name="genero">
+											<option value="Masculino">Masculino</option>
+											<option value="Femenino">Femenino</option>
+											<option value="Otro">Otro</option>
+										</select>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="estado_usuario">Estado del Usuario</label>
+									<div class="input-group mb-3">
+										<select class="form-control" id="edit_estado_usuario" name="estado_usuario">
+											<option value="activo">Activo</option>
+											<option value="inactivo">Inactivo</option>
+										</select>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="estado_usuario">Rol de usuario</label>
+									<div class="input-group mb-3">
+										<select class="form-control" id="edit_rol_usuario" name="rol">
+											<option value="activo">Administrador</option>
+											<option value="inactivo">Cliente</option>
+										</select>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="imagen">Selecciona una imagen</label>
+									<div class="input-group mb-3">
+										<input type="file" class="form-control-file" id="imagen" name="imagen">
+									</div>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+
+					<a id="edit_table" class="btn btn-sm btn-success datatable_btn_add" href="#" title="Agregar">
+						<span>Guardar</span>
+					</a>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+
+<!-- Modal edit-->
+<div class="modal" tabindex="-1" role="dialog" id="modalEditarUsuario">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+
+			<div class="modal-header">
+				<h2 class="modal-title">Editar Usuario</h2>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+
+			<form method="post">
+				<div class="modal-body">
+					<div class="container ">
+						<div class="row">
+							<div class="col-md-12 text-center">
+								<h3>Datos del Usuario
+									<span class="data_id_datatable" id="edit_id"></span>
+								</h3>
+								<br>
+
+
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="username">Username</label>
+									<div class="input-group mb-3">
+										<input class="form-control" type="text" id="edit_usuario"
+											placeholder="Username..." name="username" required readonly>
+									</div>
+								</div>
+
+
+								<div class="form-group">
+									<label for="password">Contraseña</label>
+									<div class="input-group mb-3">
+										<input class="form-control" type="password" id="edit_password"
+											placeholder="Contraseña del usuario..." name="password" required>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="nombres">Nombres</label>
+									<div class="input-group mb-3">
+										<input class="form-control" type="text" id="edit_nombres"
+											placeholder="Nombres del usuario..." name="nombres" required>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="apellidos">Apellidos</label>
+									<div class="input-group mb-3">
+										<input class="form-control" type="text" id="edit_apellidos"
+											placeholder="Apellidos del usuario..." name="apellidos" required>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="fechaNacimiento">Fecha de Nacimiento</label>
+									<div class="input-group mb-3">
+										<input type="date" class="form-control" id="fechaNacimiento"
+											name="fechaNacimiento" required>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="correo">Correo electrónico</label>
+									<div class="input-group mb-3">
+										<input class="form-control" type="email" id="edit_correo"
+											placeholder="Correo Electrónico del usuario..." name="correo" required>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="genero">Género</label>
+									<div class="input-group mb-3">
+										<select class="form-control" id="edit_genero" name="edit_genero">
+											<option value="Masculino">Masculino</option>
+											<option value="Femenino">Femenino</option>
+											<option value="Otro">Otro</option>
+										</select>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="estado_usuario">Estado del Usuario</label>
+									<div class="input-group mb-3">
+										<select class="form-control" id="edit_estado_usuario" name="estado_usuario">
+											<option value="activo">Activo</option>
+											<option value="inactivo">Inactivo</option>
+										</select>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="estado_usuario">Rol de usuario</label>
+									<div class="input-group mb-3">
+										<select class="form-control" id="edit_rol_usuario" name="rol_usuario">
+											<option value="activo">Administrador</option>
+											<option value="inactivo">Cliente</option>
+										</select>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="imagen">Selecciona una imagen</label>
+									<div class="input-group mb-3">
+										<input type="file" class="form-control-file" id="imagen" name="imagen">
+									</div>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+					{# <button id="edit_table" type="button" class="btn btn-primary">Guardar Cambios</button> #}
+					<button id="edit_table" type="button" class="btn btn-primary" data-dismiss="modal">Guardar
+						Cambios</button>
+
+				</div>
+			</form>
+
+
+		</div>
+	</div>
+</div>
+
+
+
+
+
+
 <script>
-	//======================================================================Variables==========================================================
+	/////////////////////////////////////////////////////////////     Variables     //////////////////////////////////////////////////////////////////
 
 	// Variable global para almacenar la instancia de la tabla
 	var tablaUsuarios = null;
 
-	window.onload = function () {
-		//alert("Pagina cargada");
+	//paginacion datatable Cantidad de registros a mostrar por página
+	var start = 0;
+	var length = 10;
 
-		cargarUsuario(); // Llamada a la función para cargar los usuarios al iniciar
-	};
+	let paginaActual = 0; // Variable para almacenar la página actual
+	// window.onload = function () {
+	// 	//alert("Pagina cargada");
+	// 	cargarUsuario(start, length);
+	// };
+	//====================================================== mensajes    ========================================================================
+	// Función reutilizable de SweetAlert
+	function mostrarSweetAlert(icono, titulo, texto) {
+		Swal.fire({
+			icon: icono,
+			title: titulo,
+			text: texto
+		});
+		// iconos:
+		// 		'success'
+		// 		'error'
+		// 		'warning'
+		// 		'info'
+		// 		'question'
+		//mostrarSweetAlert(error, 'Error', texto);
+		//mostrarSweetAlert('success', 'Éxito', texto);
+	}
+	
 
-	$(document).ready(function () {
-		//var table = tablausuarios;
+	// Ejemplo de cómo usar la función mostrarSweetAlert
+	
 
-		// $('#dataTable_usuarios tbody').on('click', 'tr',
-		// 	function () { // Si la fila ya está seleccionada, deselecciónala
+	// Luego, para mostrar el mensaje de éxito, simplemente llama a esta función y pasa el mensaje que deseas mostrar.
 
-
-		// 		if (table$(this).hasClass('selected')) {
-
-
-		// 			$(this).removeClass('selected');
-		// 		} else { // Si la fila no está seleccionada, marca la fila seleccionada
-		// 			table.$('tr.selected').removeClass('selected');
-		// 			$(this).addClass('selected');
-		// 			alert("lol");
-		// 		}
-		// 	});
-
-	});
 
 	/////////////////////////////////////////////////////////////     CRUDE     //////////////////////////////////////////////////////////////////
-	//======================================================Obtener usuarios==================================================================
+	//====================================================== Crear usuarios ==================================================================
 
-	function cargarUsuario() {
-		$.ajax({
-			url: '/usuarios/data',
-			method: 'GET',
-			success: function (data) {
-				if (tablaUsuarios === null) {
-					// Si la tabla aún no está inicializada, inicialízala
-					tablaUsuarios = $('#dataTable_usuarios').DataTable({
+	// Agrega un event listener al botón de Guardar
+	document.getElementById('edit_table').addEventListener('click', function () {
+		// Obtener los valores de los campos del formulario
+		const username = document.getElementById('username').value;
+		const password = document.getElementById('password').value;
+		const nombres = document.getElementById('nombres').value;
+		const apellidos = document.getElementById('apellidos').value;
+		const fechaNacimiento = document.getElementById('fechaNacimiento').value;
+		const email = document.getElementById('email').value;
+		const genero = document.getElementById('edit_genero').value;
+		const estado_usuario = document.getElementById('edit_estado_usuario').value;
+		const rol = document.getElementById('edit_rol_usuario').value;
 
-						data: data,
-						columns: [{
-								data: 'id'
-							},
-							{
-								data: 'correo'
-							},
-							{
-								data: 'rol',
-								render: function (data, type, row) {
-									let rolesHTML = '';
-									data.forEach(function (rol) {
-										rolesHTML += `
-										<span class="btn_remove_row">${rol}</span>
-										
-										<br>
-									`;
-									});
-									return rolesHTML;
-								}
-							},
-							{
-								data: 'usuario'
-							},
-							{
-								data: 'nombres'
-							},
-							{
-								data: 'apellidos'
-							},
-							{
-								// Definición de la columna personalizada
-								data: null, // No estará basada en datos preexistentes
-								render: function (data, type, row) {
-									return `<td class="datatable_btn_state d-flex">
-											<span class="mr-2">${data.estado}</span>
-											<div class="custom-control custom-switch">
-												<input type="checkbox" class="custom-control-input"
-													id="customSwitch-${data.id}"
-													onchange="confirmarCambio(this, '${data.id}', '${data.estado}', '${data.usuario}')"
-													${data.estado === 'Activo' ? 'checked' : ''}>
-												<label class="custom-control-label no-selectt" for="customSwitch-${data.id}"></label>
-											</div>
-										</td>`;
-								}
-							},
-							{
-								data: 'genero'
-							},
-							{
-								data: 'nacimiento'
-							},
-							{
-								data: 'registro'
-							},
-							{
-								data: 'acceso'
-							},
-							{
-								data: null,
-								render: function (data, type, row) {
-									return `
-									
-									<a class="btn btn-sm btn-info datatable_btn_detail" href="# data-toggle="modal" data-targer="#modalInfoUsuario"
-										title="Detalles del Usuario"></a>
+		// Construir un objeto con los datos a enviar
+		const data = {
+			username,
+			password,
+			nombres,
+			apellidos,
+			fechaNacimiento,
+			email,
+			genero,
+			estado_usuario,
+			rol
+		};
 
-										
-										<a class="btn btn-sm btn-warning datatable_btn_edit" href="#" data-toggle="modal" data-target="#modalEditarUsuario" data-id="${data.id}" data-username="${data.usuario}" 
-											title="Editar Usuario">	</a>
+		// Realizar la solicitud AJAX o solicitud POST con Fetch
+		fetch('/usuarios/new_user', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(data) // Convertir los datos a JSON
+			})
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok.');
+				}
+				return response.json(); // Analizar la respuesta JSON
+
+			})
+			.then(data => {
+				console.log('Response:', data);
+				// Aquí puedes manipular la respuesta del servidor
+
+				// Si la respuesta es exitosa, actualizar la paginación de la tabla
+				mostrarSweetAlert('success','Éxito','usuario creado exitosamente.');
+				$('#dataTable_usuarios').DataTable().ajax.reload();
+			})
+			.catch(error => {
+				console.error('Error:', error);
+				mostrarSweetAlert('error','Error',error);
+				// Aquí puedes manejar cualquier error que ocurra
+			});
+	});
 
 
+	// 	$(document).ready(function () {
+	//     $('#miModal form').submit(function (event) {
+	//         event.preventDefault();
 
-										
-									<a id="cambiarContrasena" class="btn btn-sm btn-secondary datatable_btn_pass" href="#"
-										title="Restablecer contraseña"></a>
+	//         var formData = new FormData($(this)[0]);
 
-										
-									<a class="btn btn-sm btn-danger datatable_btn_delete" href="#" data-id="${data.id}" data-username="${data.usuario}" 
-										title="Eliminar usuario"></a>
+	//         $.ajax({
+	//             type: 'POST',
+	//             url: '/usuarios/new_user',
+	//             data: formData,
+	//             processData: false,
+	//             contentType: false,
+	//             success: function (data) {
+	//                 if (data.success) {
+	//                     console.log('Usuario creado exitosamente');
+	//                     // Aquí puedes añadir lógica adicional, como cerrar el modal o recargar la página.
+	//                 } else {
+	//                     console.error('Error al crear el usuario:', data.message);
+	//                 }
+	//             },
+	//             error: function (jqXHR, textStatus, errorThrown) {
+	//                 console.error('Error en la solicitud:', errorThrown);
+	//             }
+	//         });
+	//     });
+	// });
 
-									`;
-								}
-							}
 
-							// Agrega más columnas si es necesario
-						]
-						// Configuración adicional de DataTables
-					});
-					console.log(data);
-				} else {
-					// Si la tabla ya está inicializada, actualiza los datos
-					tablaUsuarios.clear().rows.add(data).draw();
+	//====================================================== Obtener usuarios ==================================================================
+	$(document).ready(function () {
+		var tablaUsuarios = $('#dataTable_usuarios').DataTable({
+			"language": {
+				"url": "https://cdn.datatables.net/plug-ins/1.11.5/i18n/Spanish.json"
+			},
+			// Otras opciones de tu DataTable
+			"processing": true,
+			"serverSide": true,
+			"ajax": {
+				"url": '/usuarios/data',
+				"type": "GET",
+				"data": function (d) {
+					d.start = d.start || 0; // Si start no está definido, establecerlo a 0 por defecto
+					d.length = d.length ||
+						10; // Si length no está definido, establecerlo a 10 por defecto
+					// Enviar el término de búsqueda al servidor
+					d.search = {
+						value: $('#dataTable_usuarios_filter input').val()
+					};
 				}
 			},
-			error: function (xhr, status, error) {
-				console.error('Error al obtener datos de usuarios:', error);
+			columns: [{
+					data: null,
+					render: function (data, type, row, meta) {
+						return `
+							<div class="d-flex align-items-center">
+								
+								<div class="custom-control custom-checkbox ml-2">
+									<input type="checkbox" class="custom-control-input" id="checkbox-${row.id}">
+									<label class="custom-control-label" for="checkbox-${row.id}"></label>
+								</div>
+								<div>${meta.row + 1}</div>
+							</div>
+						`;
+					}
+				},
+				{
+					data: 'id'
+				},
+				{
+					data: 'correo'
+				},
+				{
+					data: 'rol',
+					render: function (data, type, row) {
+						let rolesHTML = '';
+						data.forEach(function (rol) {
+							rolesHTML += `
+							<label class="item_row">${rol}</label>
+							<br>
+							`;
+						});
+						return rolesHTML;
+					}
+				},
+
+				{
+					data: 'usuario'
+				},
+				{
+					data: 'nombres'
+				},
+				{
+					data: 'apellidos'
+				},
+				{
+					// Definición de la columna personalizada
+					data: null, // No estará basada en datos preexistentes
+					render: function (data, type, row) {
+						return `<td class="datatable_btn_state d-flex">
+									<span class="mr-2">${data.estado}</span>
+									<div class="custom-control custom-switch">
+										<input type="checkbox" class="custom-control-input"	id="customSwitch-${data.id}"
+										onchange="confirmarCambio(this, '${data.id}', '${data.estado}', '${data.usuario}')"	${data.estado === 'Activo' ? 'checked' : ''}>
+										
+										<label class="custom-control-label no-selectt" for="customSwitch-${data.id}"></label>
+									</div>
+								</td>`;
+					}
+				},
+				{
+					data: 'genero'
+				},
+				{
+					data: 'nacimiento'
+				},
+				{
+					data: 'registro'
+				},
+				{
+					data: 'acceso'
+				},
+				{
+					data: null,
+					render: function (data, type, row) {
+						return `
+									<div class="btn-toolbar" role="toolbar">
+                    <div class="btn-group mr-2" role="group">
+                        <a class="btn btn-sm btn-info datatable_btn_detail" href="#" data-toggle="modal" data-target="#modalInfoUsuario" title="Detalles del Usuario"></a>
+                    </div>
+                    <div class="btn-group mr-2" role="group">
+                        <a class="btn btn-sm btn-warning datatable_btn_edit" href="#" data-toggle="modal" data-target="#modalEditarUsuario" data-id="${data.id}" data-username="${data.usuario}" title="Editar Usuario"></a>
+                    </div>
+                    <div class="btn-group mr-2" role="group">
+                        <a id="cambiarContrasena" class="btn btn-sm btn-secondary datatable_btn_pass" href="#" title="Restablecer contraseña"></a>
+                    </div>
+                    <div class="btn-group" role="group">
+                        <a class="btn btn-sm btn-danger datatable_btn_delete" href="#" data-id="${data.id}" data-username="${data.usuario}" title="Eliminar usuario"></a>
+                    </div>
+                </div>
+									`;
+					}
+				}
+
+				// Agrega más columnas si es necesario
+			],
+			"lengthMenu": [10, 25, 50, 75, 100], // Define las opciones de cantidad de registros por página
+			"pagingType": 'full_numbers', // Establece el estilo de paginación
+			drawCallback: function () {
+				paginaActual = tablaUsuarios.page.info()
+					.page; // Almacena la página actual después de cada redibujo
 			}
 		});
 
-	}
+		// Evento 'length.dt' que se activa al cambiar la cantidad de registros por página
+		$('#dataTable_usuarios').on('length.dt', function (e, settings, len) {
+			var info = tablaUsuarios.page.info();
+			var start = info.start; // Obtén el inicio de la página actual
+			var length = len; // Obtén la nueva cantidad de registros por página
 
-	//================================================EliminarUsuario==========================================================
+			// //cargarUsuarios(start, length); // Llama a cargarUsuarios con la nueva configuración
+			// function cargarUsuarios(start, length) {
+			// 	tablaUsuarios.ajax.url('/usuarios/data?start=' + start + '&length=' + length)
+			// 		.load(); // Recarga los datos con la nueva configuración
+			// }
+			tablaUsuarios.ajax.reload();
+		});
+
+		function cargarUsuarios(start, length) {
+			tablaUsuarios.ajax.url('/usuarios/data?start=' + start + '&length=' + length).load(function () {
+				tablaUsuarios.page(paginaActual).draw(
+					'page'); // Vuelve a la página actual después de cargar los datos
+			});
+		}
+	});
+
+	//====================================================== EditarUsuario  ==================================================================
+	function confirmarCambio(input, userId, stateUser, userUsername) {
+		let estadoUsuario_ms;
+		let new_estado;
+		const id = userId;
+
+		if (stateUser === 'Activo') {
+			estadoUsuario_ms = 'Inactivar';
+			new_estado = 2;
+		} else if (stateUser === 'Inactivo') {
+			estadoUsuario_ms = 'Activar';
+			new_estado = 1;
+		}
+
+		Swal.fire({
+			title: '¿Estás seguro que deseas ' + estadoUsuario_ms + ' el usuario: ' + userUsername + '?',
+			text: "Esta acción cambiará el estado del usuario",
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Sí, cambiar'
+		}).then((result) => {
+			if (result.isConfirmed) {
+				$.ajax({
+					url: `/usuarios/update/estado/${id}/${new_estado}`,
+					method: 'POST',
+					contentType: 'application/json',
+					success: function (response) {
+						if (response.success) {
+							$('#dataTable_usuarios').DataTable().ajax.reload();
+							// console.log('Usuario actualizado');
+							//cargarUsuario();
+							//tablaUsuarios.draw(); // Actualiza la tabla DataTable después del cambio
+						} else {
+							if (response.error === 'Usuario no encontrado') {
+								Swal.fire('Error', 'El usuario no existe' + usuarioId, 'error');
+								input.checked = !input
+									.checked; // Revertir el cambio del switch si el usuario no existe
+							} else {
+								console.error('Error al actualizar el usuario');
+								input.checked = !input
+									.checked; // Revertir el cambio del switch si falla la actualización
+							}
+						}
+					},
+					error: function (xhr, status, error) {
+						console.error('Error:', error);
+						input.checked = !input
+							.checked; // Revertir el cambio del switch si ocurre un error
+					}
+				});
+			} else {
+				input.checked = !input.checked; // Revertir el cambio del switch si el usuario cancela
+			}
+		});
+	}
+	//====================================================== EliminarUsuario  ==================================================================
+
 	$(document).on('click', '.datatable_btn_delete', function (e) {
 		e.preventDefault();
 		const userId = $(this).data('id');
 		const userName = $(this).data('username');
-
-
 		Swal.fire({
-			title: '¿Estás seguro de querer eliminar al usuario ' + userName + ' ?',
+			title: '¿Estás seguro de querer eliminar el usuario ' + userName + ' ?',
 			text: "Esta acción no tendra reversión",
 			icon: 'warning',
 			showCancelButton: true,
@@ -413,8 +724,6 @@
 			if (result.isConfirmed) {
 				eliminarUsuario(userId);
 			}
-
-
 		});
 	});
 
@@ -423,14 +732,26 @@
 			type: 'DELETE',
 			url: '/usuarios/remove/' + userId,
 			success: function () {
-				cargarUsuario(); // Vuelve a cargar los datos de la tabla
+				//cargarUsuario(start, length); // Vuelve a cargar los datos de la tabla
+				$('#dataTable_usuarios').DataTable().ajax.reload();
 			},
 			error: function (error) {
 				console.error('Error al eliminar el usuario', error);
 			}
 		});
 	}
-	//================================================EditarUsuario==============================================================
+
+
+
+
+
+
+
+
+
+
+
+
 	//............................ModalEditarUsauario
 	$(document).ready(function () {
 		// Asociar la función al evento click en los botones de editar usuario
@@ -458,100 +779,14 @@
 		});
 	});
 
-
-	function confirmarCambio(input, userId, stateUser, userUsername) {
-		let estadoUsuario_ms;
-		let new_estado;
-		const id = userId;
-
-		if (stateUser === 'Activo') {
-			estadoUsuario_ms = 'Inactivar';
-			new_estado = 2;
-		} else if (stateUser === 'Inactivo') {
-			estadoUsuario_ms = 'Activar';
-			new_estado = 1;
-		}
-
-		Swal.fire({
-			title: '¿Estás seguro que deseas ' + estadoUsuario_ms + ' el usuario: ' + userUsername + '<br>' +
-				'old:  ' + stateUser + ' new:  ' + new_estado + '?',
-			text: "Esta acción cambiará el estado del usuario",
-			icon: 'warning',
-			showCancelButton: true,
-			confirmButtonColor: '#3085d6',
-			cancelButtonColor: '#d33',
-			confirmButtonText: 'Sí, cambiar'
-		}).then((result) => {
-			if (result.isConfirmed) {
-				$.ajax({
-					url: `/usuarios/update/estado/${id}/${new_estado}`,
-					method: 'POST',
-					contentType: 'application/json',
-					// data: JSON.stringify({
-					// 	userId: usuarioId, // Enviar el ID del usuario como parte de los datos
-					// 	nuevoEstado: input.checked
-					// }),
-					success: function (response) {
-						if (response.success) {
-							// console.log('Usuario actualizado');
-							cargarUsuario();
-						} else {
-							if (response.error === 'Usuario no encontrado') {
-								Swal.fire('Error', 'El usuario no existe' + usuarioId, 'error');
-								input.checked = !input
-								.checked; // Revertir el cambio del switch si el usuario no existe
-							} else {
-								console.error('Error al actualizar el usuario');
-								input.checked = !input
-								.checked; // Revertir el cambio del switch si falla la actualización
-							}
-						}
-					},
-					error: function (xhr, status, error) {
-						console.error('Error:', error);
-						input.checked = !input
-						.checked; // Revertir el cambio del switch si ocurre un error
-					}
-				});
-			} else {
-				input.checked = !input.checked; // Revertir el cambio del switch si el usuario cancela
-			}
-
-		});
-	}
-
-
 	// Función para abrir modal new usuario
 	$(document).ready(function () {
 		$("#abrirModal").click(function () {
 			$("#miModal").modal('show');
 		});
-	});
-
-
-
+	})
 
 	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++Table_usuario
-
-	//recarga toda la pagina
-	$('.datatable_btn_delete').on('click', function (e) {
-		e.preventDefault();
-		var user_Id = $(this).data('id');
-		var user_name = $(this).data('username');
-
-		if (confirm('¿Estás seguro de querer eliminar al usuario ' + user_name + '?')) {
-			$.ajax({
-				type: 'DELETE',
-				url: '/usuarios/remove/' + user_Id,
-				success: function () {
-					location.reload(); // Recarga la página
-				},
-				error: function (error) {
-					console.error('Error al eliminar el usuario', error);
-				}
-			});
-		}
-	});
 </script>
 
 
