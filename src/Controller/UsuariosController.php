@@ -55,12 +55,12 @@ class UsuariosController extends AbstractController
     public function new_user(Request $request, UserPasswordHasherInterface $passwordHasher): JsonResponse
     {
         $username = $request->request->get('username');
-        $nombre = $request->request->get('nombres');
+        $nombres = $request->request->get('nombres');
         $apellidos = $request->request->get('apellidos');
         $email = $request->request->get('email');
         $plaintextPassword = $request->request->get('password'); // Corregido: usar 'password' en lugar de 'pass'
-        $role = $request->request->get('rol');
-        $fecha_nacimiento = \DateTime::createFromFormat('Y-m-d', $request->request->get('fechaNacimiento'));
+        $rol = $request->request->get('rol');
+        $fechaNacimiento = \DateTime::createFromFormat('Y-m-d', $request->request->get('fechaNacimiento'));
         $fecha_registro = new \DateTime();
         $fecha_acceso = new \DateTime();
 
@@ -68,27 +68,30 @@ class UsuariosController extends AbstractController
         $estadoUsuarioId = $request->request->get('estado_usuario');
 
         $genero = $this->em->getRepository(Genero::class)->find($generoId);
-        $estadoUsuario = $this->em->getRepository(EstadoCuentaUsuario::class)->find($estadoUsuarioId);
+        $estado_usuario = $this->em->getRepository(EstadoCuentaUsuario::class)->find($estadoUsuarioId);
 
         // Verificar si los datos no son nulos
-        if (!$username || !$nombre || !$apellidos || !$email || !$plaintextPassword || !$role || !$genero || !$estadoUsuario || !$fecha_nacimiento) {
+        if (!$username || !$nombres || !$apellidos || !$email || !$plaintextPassword || !$rol || !$genero || !$estado_usuario || !$fechaNacimiento) {
             return new JsonResponse(['success' => false, 'message' => 'Falta información obligatoria.'], 400);
+        }
+        if ($rol !== 'ROLE_ADMIN' && $rol !== 'ROLE_INVITED' && $rol !== '') {
+            return new JsonResponse(['success' => false, 'message' => 'Rol no válido.'], 400);
         }
 
         $usuario = new Usuarios();
-
+        $roles = [$rol];
         // Hash de la contraseña (basado en la configuración de security.yaml para la clase $user)
         $hashedPassword = $passwordHasher->hashPassword($usuario, $plaintextPassword);
 
-        $usuario->setNombres($nombre);
+        $usuario->setNombres($nombres);
         $usuario->setApellidos($apellidos);
         $usuario->setUsername($username);
         $usuario->setEmail($email);
         $usuario->setPassword($hashedPassword);
-        $usuario->setRoles([$role]);
+        $usuario->setRoles($roles);
         $usuario->setGenero($genero); // Establecer el objeto Genero, no solo el ID
-        $usuario->setEstadoCuenta($estadoUsuario); // Establecer el objeto EstadoCuentaUsuario, no solo el ID
-        $usuario->setFechaDeNacimiento($fecha_nacimiento);
+        $usuario->setEstadoCuenta($estado_usuario); // Establecer el objeto EstadoCuentaUsuario, no solo el ID
+        $usuario->setFechaDeNacimiento($fechaNacimiento);
         $usuario->setFechaDeRegistro($fecha_registro);
         $usuario->setFechaDeAcceso($fecha_acceso); // Corregido: usar 'setFechaDeAcceso' en lugar de 'getFechaDeAcceso'
 

@@ -185,10 +185,9 @@
 								<div class="form-group">
 									<label for="genero">Género</label>
 									<div class="input-group mb-3">
-										<select class="form-control" id="edit_genero" name="genero">
-											<option value="Masculino">Masculino</option>
-											<option value="Femenino">Femenino</option>
-											<option value="Otro">Otro</option>
+										<select class="form-control" id="genero_id" name="genero">
+											<option value="1">Masculino</option>
+											<option value="2">Femenino</option>
 										</select>
 									</div>
 								</div>
@@ -196,9 +195,9 @@
 								<div class="form-group">
 									<label for="estado_usuario">Estado del Usuario</label>
 									<div class="input-group mb-3">
-										<select class="form-control" id="edit_estado_usuario" name="estado_usuario">
-											<option value="activo">Activo</option>
-											<option value="inactivo">Inactivo</option>
+										<select class="form-control" id="estado_usuario_id" name="estado_usuario">
+											<option value="1">Activo</option>
+											<option value="2">Inactivo</option>
 										</select>
 									</div>
 								</div>
@@ -206,9 +205,10 @@
 								<div class="form-group">
 									<label for="estado_usuario">Rol de usuario</label>
 									<div class="input-group mb-3">
-										<select class="form-control" id="edit_rol_usuario" name="rol">
-											<option value="activo">Administrador</option>
-											<option value="inactivo">Cliente</option>
+										<select class="form-control" id="rol" name="rol">
+											<option value="">Usuario</option>
+											<option value="ROLE_ADMIN">Administrador</option>
+											<option value="ROLE_INVITED">Cliente</option>
 										</select>
 									</div>
 								</div>
@@ -309,7 +309,7 @@
 								<div class="form-group">
 									<label for="correo">Correo electrónico</label>
 									<div class="input-group mb-3">
-										<input class="form-control" type="email" id="edit_correo"
+										<input class="form-control" type="email" id="email"
 											placeholder="Correo Electrónico del usuario..." name="correo" required>
 									</div>
 								</div>
@@ -406,31 +406,21 @@
 		//mostrarSweetAlert(error, 'Error', texto);
 		//mostrarSweetAlert('success', 'Éxito', texto);
 	}
-	
-
-	// Ejemplo de cómo usar la función mostrarSweetAlert
-	
-
-	// Luego, para mostrar el mensaje de éxito, simplemente llama a esta función y pasa el mensaje que deseas mostrar.
 
 
 	/////////////////////////////////////////////////////////////     CRUDE     //////////////////////////////////////////////////////////////////
 	//====================================================== Crear usuarios ==================================================================
+	$('#edit_table').click(function () {
+		const username = $('#username').val();
+		const password = $('#password').val();
+		const nombres = $('#nombres').val();
+		const apellidos = $('#apellidos').val();
+		const fechaNacimiento = $('#fechaNacimiento').val();
+		const email = $('#email').val();
+		const genero = $('#genero_id').val();
+		const estado_usuario = $('#estado_usuario_id').val();
+		const rol = $('#rol').val();
 
-	// Agrega un event listener al botón de Guardar
-	document.getElementById('edit_table').addEventListener('click', function () {
-		// Obtener los valores de los campos del formulario
-		const username = document.getElementById('username').value;
-		const password = document.getElementById('password').value;
-		const nombres = document.getElementById('nombres').value;
-		const apellidos = document.getElementById('apellidos').value;
-		const fechaNacimiento = document.getElementById('fechaNacimiento').value;
-		const email = document.getElementById('email').value;
-		const genero = document.getElementById('edit_genero').value;
-		const estado_usuario = document.getElementById('edit_estado_usuario').value;
-		const rol = document.getElementById('edit_rol_usuario').value;
-
-		// Construir un objeto con los datos a enviar
 		const data = {
 			username,
 			password,
@@ -442,36 +432,25 @@
 			estado_usuario,
 			rol
 		};
-
-		// Realizar la solicitud AJAX o solicitud POST con Fetch
-		fetch('/usuarios/new_user', {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify(data) // Convertir los datos a JSON
-			})
-			.then(response => {
-				if (!response.ok) {
-					throw new Error('Network response was not ok.');
-				}
-				return response.json(); // Analizar la respuesta JSON
-
-			})
-			.then(data => {
-				console.log('Response:', data);
-				// Aquí puedes manipular la respuesta del servidor
-
-				// Si la respuesta es exitosa, actualizar la paginación de la tabla
-				mostrarSweetAlert('success','Éxito','usuario creado exitosamente.');
+		console.log(JSON.stringify(data, null, 2));
+		alert(JSON.stringify(data, null, 2));
+		$.ajax({
+			type: 'POST',
+			url: '/usuarios/new_user',
+			contentType: 'application/json',
+			data: JSON.stringify(data),
+			success: function (response) {
+				console.log('Response:', response);
+				mostrarSweetAlert('success', 'Éxito', 'Usuario creado exitosamente.');
 				$('#dataTable_usuarios').DataTable().ajax.reload();
-			})
-			.catch(error => {
+			},
+			error: function (xhr, status, error) {
 				console.error('Error:', error);
-				mostrarSweetAlert('error','Error',error);
-				// Aquí puedes manejar cualquier error que ocurra
-			});
+				//mostrarSweetAlert('error', 'Error', error);
+			}
+		});
 	});
+
 
 
 	// 	$(document).ready(function () {
@@ -680,6 +659,8 @@
 					success: function (response) {
 						if (response.success) {
 							$('#dataTable_usuarios').DataTable().ajax.reload();
+							mostrarSweetAlert('success', 'Éxito',
+								'el estado del usuario se actualizo exitosamente.');
 							// console.log('Usuario actualizado');
 							//cargarUsuario();
 							//tablaUsuarios.draw(); // Actualiza la tabla DataTable después del cambio
@@ -690,6 +671,7 @@
 									.checked; // Revertir el cambio del switch si el usuario no existe
 							} else {
 								console.error('Error al actualizar el usuario');
+
 								input.checked = !input
 									.checked; // Revertir el cambio del switch si falla la actualización
 							}
@@ -697,6 +679,7 @@
 					},
 					error: function (xhr, status, error) {
 						console.error('Error:', error);
+						mostrarSweetAlert('error', 'Error', error);
 						input.checked = !input
 							.checked; // Revertir el cambio del switch si ocurre un error
 					}
@@ -733,9 +716,11 @@
 			url: '/usuarios/remove/' + userId,
 			success: function () {
 				//cargarUsuario(start, length); // Vuelve a cargar los datos de la tabla
+				mostrarSweetAlert('success', 'El usuario: ' + userId + ' se elimino correctamente', ' ');
 				$('#dataTable_usuarios').DataTable().ajax.reload();
 			},
 			error: function (error) {
+				mostrarSweetAlert('error', 'Error', error);
 				console.error('Error al eliminar el usuario', error);
 			}
 		});
