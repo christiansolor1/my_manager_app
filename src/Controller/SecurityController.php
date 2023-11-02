@@ -1,11 +1,9 @@
 <?php
-
 namespace App\Controller;
-namespace App\Controller\SecurityController;
+
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\SecurityBundle\Security;
 
 class SecurityController extends AbstractController
 {
@@ -15,6 +13,4 @@ class SecurityController extends AbstractController
         // controller can be blank: it will never be called!
         throw new \Exception('Don\'t forget to activate logout in security.yaml');
     }
-
-    
 }

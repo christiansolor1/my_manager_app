@@ -1,0 +1,65 @@
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+		const editButtons = document.querySelectorAll('.datatable_btn_detail');
+		const fechaHoy = new Date();
+		const fechaYHoraActual = new Date();
+		const fechaActual = fechaHoy.toISOString().split('T')[0];
+		const fechaYHoraActualString = fechaYHoraActual.toISOString().slice(0, 19).replace('T', ' ');
+
+		editButtons.forEach(function (button, index) {
+			button.addEventListener('click', function () {
+				const row = button.closest('tr'); // Encuentra la fila actual
+
+				const id = row.querySelector('td:nth-child(1)').textContent;
+				const usuario = row.querySelector('td:nth-child(2)').textContent;
+				const nombres = row.querySelector('td:nth-child(3)').textContent;
+				const apellidos = row.querySelector('td:nth-child(4)').textContent;
+				const correo = row.querySelector('td:nth-child(5)').textContent;
+				const genero = row.querySelector('td:nth-child(6)').textContent;
+				const rol = row.querySelector('td:nth-child(7)').textContent;
+				const estado = row.querySelector('.custom-control-input').checked ? 'Activo' :
+					'Inactivo';
+
+				// Crea un elemento de imagen
+				const imagenPerfil = document.createElement('img');
+				imagenPerfil.src = 'image/logodev.png'; // Ruta a la imagen de perfil
+				imagenPerfil.alt = 'Imagen de perfil';
+				imagenPerfil.className = 'imagen-de-perfil';
+				// Aplica estilos CSS para ajustar el tamaño de la imagen
+				imagenPerfil.style.width = '100px'; // Ancho en píxeles
+				imagenPerfil.style.height = '100px';
+				// Alto en píxeles
+
+				// Crea la estructura HTML de la ventana modal
+				const modalContent = document.createElement('div');
+				modalContent.appendChild(imagenPerfil);
+				modalContent.innerHTML += `<br><br><p><strong>ID:</strong> ${id}</p>
+                <p><strong>Usuario:</strong> ${usuario}</p>
+                <p><strong>Nombres:</strong> ${nombres}</p>
+                <p><strong>Apellidos:</strong> ${apellidos}</p>
+                <p><strong>Fecha de nacimiento:</strong> ${fechaActual}</p>
+                <p><strong>Fecha registro:</strong> ${fechaYHoraActualString}</p>
+                <p><strong>Ultimo acceso:</strong> ${fechaYHoraActualString}</p>
+                <p><strong>Correo:</strong> ${correo}</p>
+                <p><strong>Género:</strong> ${genero}</p>
+                <p><strong>Rol:</strong> ${rol}</p>
+                <p><strong>Estado:</strong> ${estado}</p>`;
+
+				Swal.fire({
+					title: 'Detalles del Usuario',
+					html: modalContent,
+					icon: 'info',
+					showCancelButton: true,
+					confirmButtonColor: '#ffc107 ',
+					cancelButtonColor: '#6c757d',
+					confirmButtonText: 'Editar',
+					cancelButtonText: 'Cerrar'
+				}).then((result) => {
+					if (result.isConfirmed) {
+						abrirModalEditar();
+					}
+				});
+			});
+		});
+	});
+</script>

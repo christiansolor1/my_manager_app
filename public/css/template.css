@@ -26,9 +26,9 @@
     /* .............................. *Card*............................... */
     --card-border-radius: calc(8px - 0px);
     --btn-border-radius: calc(8px - 0px);
-    --main-background:#eef2f6;
-    --card-background:#fff;
-    --form-background:var(--card-border-radius);
+    --main-background: #eef2f6;
+    --card-background: #fff;
+    --form-background: var(--card-border-radius);
 
 
 
@@ -83,6 +83,20 @@ body {
 /* ====================================================== *Styless* ==================================================== */
 /* .............................. *Contenedores* ............................... */
 /* contenedor principal */
+#content {
+    /* position: relative; */
+    transition: all 0.3s;
+    background-color: #EEEEEE;
+}
+
+.main-content {
+    padding: 10px 20px 0px 20px;
+    /* position: relative; */
+    width: 100%;
+    height: 100vh;
+
+}
+
 .auth-main {
     background: var(--main-background);
     padding: 3px;
@@ -90,14 +104,14 @@ body {
 
 /* contenedor secundario */
 .auth-wrapper {
-    background:var(--main-background);
+    background: var(--main-background);
     /* border: 11px solid black; */
     padding: 3px;
 }
 
 /* marco de una pagina */
 .auth-page {
-    background:var(--main-background);
+    background: var(--main-background);
     padding: 10px;
     border-radius: var(--card-border-radius);
     -webkit-border-radius: var(--card-border-radius);
@@ -248,7 +262,8 @@ navbar-nav>.active>a:focus {
     padding: 20px;
     text-align: center;
     /*box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
-    */-webkit-border-radius: 10px;
+    */
+    -webkit-border-radius: 10px;
 }
 
 .form_login .inpt_text_login {
@@ -413,7 +428,7 @@ navbar-nav>.active>a:focus {
 
 .container_table {
     width: 100%;
-   
+
 
     /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
     /* -webkit-border-radius: 10px;
@@ -466,6 +481,7 @@ table {
     border: none;
     background-color: #1475c5;
 }
+
 /* .............................. *botones data table* ............................... */
 
 .container_table .datatable_btn_add {

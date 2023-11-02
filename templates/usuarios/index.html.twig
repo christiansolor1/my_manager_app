@@ -5,11 +5,6 @@
 
 
 {% block body %}
-{% if is_granted('IS_AUTHENTICATED_FULLY') %}
-<p>Email:
-	{{ app.user.email }}</p>
-{% endif %}
-
 <div class="auth-main">
 	<div class="auth-wrapper ">
 		<div class="auth-page">
