@@ -1,3 +1,25 @@
+framework:
+    rate_limiter:
+        # define 2 rate limiters (one for username+IP, the other for IP)
+        username_ip_login:
+            policy: token_bucket
+            limit: 5
+            rate: { interval: '5 minutes' }
+
+        ip_login:
+            policy: sliding_window
+            limit: 50
+            interval: '15 minutes'
+
+services:
+    # our custom login rate limiter
+    app.login_rate_limiter:
+        class: Symfony\Component\Security\Http\RateLimiter\DefaultLoginRateLimiter
+        arguments:
+            # globalFactory is the limiter for IP
+            $globalFactory: '@limiter.ip_login'
+            # localFactory is the limiter for username+IP
+            $localFactory: '@limiter.username_ip_login'
 security:
     # https://symfony.com/doc/current/security.html#registering-the-user-hashing-passwords
     password_hashers:
@@ -22,18 +44,54 @@ security:
                 # "app_login" is the name of the route created previously
                 login_path: app_login
                 check_path: app_login
+                enable_csrf: true
+            json_login:
+                # api_login is a route we will create below
+                check_path: api_login
+            http_basic:
+                realm: Secured Area
+            entry_point: 'form_login'
+            # by default, the feature allows 5 login attempts per minute
+            #login_throttling: null
+
+            # configure the maximum login attempts
+            #login_throttling:
+            #    max_attempts: 3          # per minute ...
+                # interval: '15 minutes' # ... or in a custom period
+
+            # use a custom rate limiter via its service ID
+            login_throttling:
+                limiter: app.my_login_rate_limiter
+            
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
 
             # https://symfony.com/doc/current/security/impersonating_user.html
             # switch_user: true
+            login_link:
+                check_route: login_check
+                signature_properties: ['id']
+            logout:
+                path: app_logout
 
+            access_token:
+                token_handler: App\Security\AccessTokenHandler
+        role_hierarchy:
+        
+        ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+        ROLE_ADMIN:
+            pattern: ^/admin
+            form_login:
+                login_path: /login
+                check_path: /login_check
+                always_use_default_target_path: true
+                default_target_path: /admin/dashboard
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/profile, roles: ROLE_USER }
 
 when@test:
     security:

@@ -248,12 +248,7 @@ navbar-nav>.active>a:focus {
     padding: 20px;
     text-align: center;
     /*box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
-    */
-    -webkit-border-radius: 10px;
-    -moz-border-radius: var(--card-border-radius);
-    -ms-border-radius: var(--card-border-radius);
-    -o-border-radius: var(--card-border-radius);
-    -webkit-border-radius: var(--card-border-radius);
+    */-webkit-border-radius: 10px;
 }
 
 .form_login .inpt_text_login {
@@ -817,8 +812,8 @@ table.dataTable thead th:hover {
 /*-------------------------------logo header*/
 /*sd_color del logo header*/
 #sidebar .sidebar-header {
-    padding: 5px;
-    background-color: var(--sidebar-primaryHoverColor);
+    padding: 8px;
+    background-color: var(--secondColor);
     border-bottom: var(--sidebar-header-bar-color);
 }
 

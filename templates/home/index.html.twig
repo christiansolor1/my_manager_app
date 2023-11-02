@@ -6,6 +6,10 @@
 
 
 {% block body %}
+{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+<p>Email:
+	{{ app.user.email }}</p>
+{% endif %}
 
 <!--------------------------------------------------------------Wrapper-->
 <div class="wrapper">
@@ -110,9 +114,9 @@
 					</li>
 					<li>
 						{# <a class="item_dropdown_list" href="{{ path('app_logout') }}">
-							<i class="material-icons">logout</i>
-							<span>Cerrar sessión</span>
-						</a> #}
+														<i class="material-icons">logout</i>
+														<span>Cerrar sessión</span>
+													</a> #}
 					</li>
 				</ul>
 			</li>
@@ -208,9 +212,9 @@
 									<li>
 
 										{# <a class="" href="{{ path('app_logout') }}">
-											<i class="material-icons">logout</i>
-											<span class="">Cerrar sessión</span>
-										</a> #}
+																						<i class="material-icons">logout</i>
+																						<span class="">Cerrar sessión</span>
+																					</a> #}
 									</li>
 
 
