@@ -3,12 +3,539 @@
 {% block title %}Hello ClientesController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Gestion de Clientes</h1>
-</div>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.7.1/font/bootstrap-icons.css" rel="stylesheet">
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Categorías y Subcategorías</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        .list-categoria {
+            border-radius: calc(8px - 0px);
+        }
+
+        ol,
+        ul {
+            padding-left: 2rem;
+        }
+
+        .list-group-item.category-row .category-details {
+            padding: 5px;
+        }
+
+        .list-group-item.category-row .subcategory-row {
+            padding: 5px;
+        }
+
+
+        /* Estilos para la categoría */
+        .list-group-item.category-row .category-details:hover {
+            background-color: rgba(0, 123, 255, 0.2);
+            border-radius: calc(8px - 0px);
+
+
+            /* Color de fondo al pasar el cursor sobre la categoría */
+        }
+
+        .list-group-item.category-row .subcategory-row:hover {
+            background-color: rgba(0, 123, 255, 0.2);
+            border-radius: calc(8px - 0px);
+
+
+            /* Color de fondo al pasar el cursor sobre la categoría */
+        }
+
+        /* Estilos para la subcategoría */
+        .list-group-item.category-row:hover .subcategory-details {
+
+            /* background-color: rgba(0, 255, 123, 0.2); */
+            /* Color de fondo al pasar el cursor sobre la subcategoría */
+        }
+
+
+
+        /* Estilos CSS */
+        .descripcion_categoria {
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .form-check {
+            display: inline-block;
+            vertical-align: middle;
+            margin-left: 10px;
+        }
+
+        .description {
+            display: none;
+        }
+
+        .subcategories {
+            display: none;
+        }
+
+        #categories {
+            cursor: pointer;
+
+            transition: background-color 0.3s;
+
+        }
+
+        .category-row {
+            background-color: #e0e0e0;
+            /* padding: 8px; */
+            /*       */
+            /* border: 11px solid black; */
+
+        }
+
+
+        .category-row.selected {
+            /* background-color: #f0f0f0; */
+            /* background-color: #ADD8E6; */
+        }
+
+
+
+        .list-group-item.category:hover {
+            /* box-shadow: inset 0 0 0 1000px rgba(0, 123, 255, 0.2); */
+            /* Cambia el color y la opacidad según tus preferencias */
+        }
+
+
+        .scrollable {
+            max-height: 400px;
+            /* Establecer la altura máxima */
+            overflow-y: auto;
+            /* Habilitar scroll vertical si supera la altura */
+        }
+
+
+
+        /* list-group-item category category-row */
+    </style>
+</head>
+
+<body>
+    <div class="auth-page">
+        <div class="card">
+        </div>
+
+        <div class="card">
+
+            <div class="card-body">
+                <h5 class="card-title">Título del Card</h5>
+                <div class="col-md-6 mb-3">
+										<label for="validationServer01">First name</label>
+										<input type="text" class="form-control is-valid" id="validationServer01" value="Mark" required>
+										<div class="valid-feedback">
+											Looks good!
+										</div>
+									</div>
+									<div class="col-md-3 mb-3">
+										<label for="validationServer04">State</label>
+										<select class="custom-select is-invalid" id="validationServer04" aria-describedby="validationServer04Feedback" required>
+											<option selected disabled value="">Choose...</option>
+											<option>...</option>
+										</select>
+										<div id="validationServer04Feedback" class="invalid-feedback">
+											Please select a valid state.
+										</div>
+									</div>
+									<div class="col-md-6 mb-3">
+										<label for="validationServer03">City</label>
+										<input type="text" class="form-control is-invalid" id="validationServer03" aria-describedby="validationServer03Feedback" required>
+										<div id="validationServer03Feedback" class="invalid-feedback">
+											Please provide a valid city.
+										</div>
+									</div>
+									<div class="col-md-3 mb-3">
+										<label for="validationServer05">Zip</label>
+										<input type="text" class="form-control is-invalid" id="validationServer05" aria-describedby="validationServer05Feedback" required>
+										<div id="validationServer05Feedback" class="invalid-feedback">
+											Please provide a valid zip.
+										</div>
+									</div>
+									<div class="mb-3">
+										<div class="input-group is-invalid">
+											<div class="input-group-prepend">
+												<span class="input-group-text" id="validatedInputGroupPrepend">@</span>
+											</div>
+											<input type="text" class="form-control is-invalid" aria-describedby="validatedInputGroupPrepend" required>
+										</div>
+										<div class="invalid-feedback">
+											Example invalid input group feedback
+										</div>
+									</div>
+                <!-- Otros elementos adicionales, botones, enlaces, etc. -->
+            </div>
+        </div>
+        <div class="card">
+
+            <div class="card-body">
+                <h5 class="card-title">Título del Card</h5>
+                <p class="card-text">Contenido del card, texto descriptivo, etc.</p>
+                <!-- Otros elementos adicionales, botones, enlaces, etc. -->
+            </div>
+        </div>
+        <div class="card">
+
+            <div class="card-body">
+                <h5 class="card-title">Título del Card</h5>
+                <p class="card-text">Contenido del card, texto descriptivo, etc.</p>
+                <!-- Otros elementos adicionales, botones, enlaces, etc. -->
+            </div>
+        </div>
+        <div class="card">
+
+            <div class="card-body">
+                <h3 class="card-title">Gestion de Funciones y Accesos</h3>
+                <div class="container mt-5">
+                    <div class="row">
+                        <div class="col-sm-5">
+
+                            <h4>Funciones y Acciones</h4>
+                            <div class="scrollable">
+                                <ul id="categories" class="list-categoria ">
+                                    <li class="list-group-item category category-row">
+                                        <div class="category-details">
+
+                                            <span class="descripcion_categoria"><i
+                                                    class="bi bi-chevron-right"></i></span>
+                                            <div class="form-check">
+                                                <input class="form-check-input input-primary category-checkbox"
+                                                    type="checkbox" id="customCheckc1">
+                                                <label class="form-check-label text-muted "
+                                                    for="customCheckc1">Contabilidad <span
+                                                        class="descriopcion_subcategoria">👁️</span></label>
+                                                <div class="description">es el proceso de registrar, organizar y analizar las transacciones financieras de una empresa o individuo. Se encarga de mantener un seguimiento preciso de los ingresos, gastos, activos y pasivos, proporcionando información clave para la toma de decisiones financieras y la evaluación de la salud económica de una entidad.</div>
+                                            </div>
+                                        </div>
+                                        <ul class="subcategories">
+                                            <li class="list-group-item subcategory-row">
+                                                <div class="form-check">
+                                                    <input class="form-check-input input-primary subcategory-checkbox"
+                                                        type="checkbox" id="customCheck1">
+                                                    <label class="form-check-label text-muted "
+                                                        for="customCheck1">Registro de Transacciones Financieras <span
+                                                            class="descriopcion_subcategoria">👁️</span></label>
+                                                    <div class="description" style="display: none;">Registrar facturas de proveedores, recibos de ventas, pagos de nómina y otros documentos financieros en el sistema contable.</div>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item subcategory-row">
+                                                <div class="form-check">
+                                                    <input class="form-check-input input-primary subcategory-checkbox"
+                                                        type="checkbox" id="customCheck2">
+                                                    <label class="form-check-label text-muted " for="customCheck2">Preparación de Estados Financieros
+                                                        <span class="descriopcion_subcategoria">👁️</span></label>
+                                                    <div class="description" style="display: none;"> Crear el Estado de Resultados, Balance General y Estado de Flujos de Efectivo al final de cada período contable para analizar y reportar la salud financiera de la empresa.</div>
+                                                </div>
+                                            </li>
+                                            <!-- Más subcategorías -->
+                                            <li class="list-group-item subcategory-row">
+                                                <div class="form-check">
+                                                    <input class="form-check-input input-primary subcategory-checkbox"
+                                                        type="checkbox" id="customCheck3">
+                                                    <label class="form-check-label text-muted " for="customCheck3">Gestión de Cuentas por Pagar y Cuentas por Cobrar <span
+                                                            class="descriopcion_subcategoria">👁️</span></label>
+                                                    <div class="description" style="display: none;">Supervisar los pagos a proveedores, asegurarse de que las cuentas por pagar se manejen adecuadamente. También, gestionar las facturas pendientes de clientes para asegurar la cobranza oportuna.</div>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item subcategory-row">
+                                                <div class="form-check">
+                                                    <input class="form-check-input input-primary subcategory-checkbox"
+                                                        type="checkbox" id="customCheck4">
+                                                    <label class="form-check-label text-muted " for="customCheck4">Análisis y Control Presupuestario<span
+                                                            class="descriopcion_subcategoria">👁️</span></label>
+                                                    <div class="description" style="display: none;">Comparar los gastos reales con el presupuesto planeado para identificar variaciones y tomar medidas correctivas. Esto implica controlar y ajustar los gastos para cumplir con los objetivos presupuestarios.
+                                                        Estas funciones son fundamentales para el departamento de contabilidad y abarcan desde la captura y registro de transacciones hasta la preparación de informes financieros, gestión de cuentas y análisis presupuestario.
+                                                        
+                                                        </div>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item category category-row">
+                                                <div class="category-details">
+                                                    <span class="descripcion_categoria"><i
+                                                            class="bi bi-chevron-right"></i></span>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input input-primary category-checkbox"
+                                                            type="checkbox" id="customCheckc4">
+                                                        <label class="form-check-label text-muted "
+                                                            for="customCheckc4"><Ri:a>Reportes</Ri:a> <span
+                                                                class="descriopcion_subcategoria">👁️</span></label>
+                                                        <div class="description">Estado de Resultados</div>
+                                                    </div>
+                                                </div>
+                                                <ul class="subcategories">
+                                                    <li class="list-group-item subcategory-row">
+                                                        <div class="form-check">
+                                                            <input
+                                                                class="form-check-input input-primary subcategory-checkbox"
+                                                                type="checkbox" id="customCheck1">
+                                                            <label class="form-check-label text-muted "
+                                                                for="customCheck1">Estado de Resultados (o Pérdidas y Ganancias)<span
+                                                                    class="descriopcion_subcategoria">👁️</span></label>
+                                                            <div class="description" style="display: none;">Muestra los ingresos, costos, gastos y el beneficio neto durante un período específico, lo que proporciona una visión general del desempeño financiero de la empresa.</div>
+                                                        </div>
+                                                    </li>
+                                                    <li class="list-group-item subcategory-row">
+                                                        <div class="form-check">
+                                                            <input
+                                                                class="form-check-input input-primary subcategory-checkbox"
+                                                                type="checkbox" id="customCheck2">
+                                                            <label class="form-check-label text-muted "
+                                                                for="customCheck2">Balance General
+                                                                <span
+                                                                    class="descriopcion_subcategoria">👁️</span></label>
+                                                            <div class="description" style="display: none;">Ofrece un resumen de los activos, pasivos y el patrimonio neto de una empresa en un momento dado. Muestra la situación financiera en términos de lo que la empresa posee y lo que debe.</div>
+                                                        </div>
+                                                    </li>
+                                                    <!-- Más subcategorías -->
+                                                    <li class="list-group-item subcategory-row">
+                                                        <div class="form-check">
+                                                            <input
+                                                                class="form-check-input input-primary subcategory-checkbox"
+                                                                type="checkbox" id="customCheck3">
+                                                            <label class="form-check-label text-muted "
+                                                                for="customCheck3">Flujo de Efectivo <span
+                                                                    class="descriopcion_subcategoria">👁️</span></label>
+                                                            <div class="description" style="display: none;">Presenta los movimientos de efectivo y equivalentes en un período determinado, detallando las entradas y salidas de efectivo. Es útil para comprender cómo el efectivo se mueve dentro de la empresa.
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li class="list-group-item subcategory-row">
+                                                        <div class="form-check">
+                                                            <input
+                                                                class="form-check-input input-primary subcategory-checkbox"
+                                                                type="checkbox" id="customCheck4">
+                                                            <label class="form-check-label text-muted "
+                                                                for="customCheck4">Informe de Cuentas por Pagar y Cuentas por Cobrar<span
+                                                                    class="descriopcion_subcategoria">👁️</span></label>
+                                                            <div class="description" style="display: none;">Detalla las deudas que la empresa debe a sus proveedores (cuentas por pagar) y los montos pendientes que los clientes deben a la empresa (cuentas por cobrar).
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <!-- Más subcategorías -->
+                                                </ul>
+                                            </li>
+                                            <!-- Más subcategorías -->
+                                        </ul>
+                                    </li>
+                                    <li class="list-group-item category category-row">
+                                        <div class="category-details">
+                                            <span class="descripcion_categoria"><i
+                                                    class="bi bi-chevron-right"></i></span>
+                                            <div class="form-check">
+                                                <input class="form-check-input input-primary category-checkbox"
+                                                    type="checkbox" id="customCheckc2">
+                                                <label class="form-check-label text-muted " for="customCheckc2">Compras
+                                                    <span class="descriopcion_subcategoria">👁️</span></label>
+                                                <div class="description" style="display: none;">son la función o proceso dentro de una organización o empresa encargado de adquirir bienes o servicios necesarios para el funcionamiento de la misma. Esta actividad implica la identificación, selección, negociación y adquisición de productos o servicios, asegurando la calidad, la cantidad adecuada y el mejor precio posible, contribuyendo así al abastecimiento eficiente y oportuno de recursos para la empresa.</div>
+                                            </div>
+                                        </div>
+
+                                        <ul class="subcategories">
+                                            <li class="list-group-item subcategory-row">
+                                                <div class="form-check">
+                                                    <input class="form-check-input input-primary subcategory-checkbox"
+                                                        type="checkbox" id="customCheck5">
+                                                    <label class="form-check-label text-muted " for="customCheck5">Generación de Órdenes de Compra<span
+                                                            class="descriopcion_subcategoria">👁️</span></label>
+                                                    <div class="description" style="display: none;"> Elaborar órdenes de compra formales que detallan la cantidad, descripción, precio y términos de los bienes o servicios a adquirir, transmitiendo las intenciones de compra a los proveedores.</div>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item subcategory-row">
+                                                <div class="form-check">
+                                                    <input class="form-check-input input-primary subcategory-checkbox"
+                                                        type="checkbox" id="customCheck6">
+                                                    <label class="form-check-label text-muted "
+                                                        for="customCheck6">Solicitud de
+                                                        Compras <span
+                                                            class="descriopcion_subcategoria">👁️</span></label>
+                                                    <div class="description" style="display: none;">Procesar y gestionar las solicitudes de compra provenientes de los distintos departamentos de la empresa, evaluar su validez y prioridad para iniciar el proceso de adquisición.</div>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item subcategory-row">
+                                                <div class="form-check">
+                                                    <input class="form-check-input input-primary subcategory-checkbox"
+                                                        type="checkbox" id="customCheck7">
+                                                    <label class="form-check-label text-muted " for="customCheck7">Control de Inventarios y Stock<span
+                                                            class="descriopcion_subcategoria">👁️</span></label>
+                                                    <div class="description" style="display: none;">Supervisar y mantener actualizados los niveles de inventario, asegurando un equilibrio entre la disponibilidad de productos y la optimización de costos asociados al almacenamiento.
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item subcategory-row">
+                                                <div class="form-check">
+                                                    <input class="form-check-input input-primary subcategory-checkbox"
+                                                        type="checkbox" id="customCheck8">
+                                                    <label class="form-check-label text-muted " for="customCheck8">Administración de Contratos con Proveedores<span
+                                                            class="descriopcion_subcategoria">👁️</span></label>
+                                                    <div class="description" style="display: none;">Negociar y redactar contratos con los proveedores, definir términos y condiciones, acuerdos de pago, tiempos de entrega, penalizaciones, entre otros detalles contractuales.
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item subcategory-row">
+                                                <div class="form-check">
+                                                    <input class="form-check-input input-primary subcategory-checkbox"
+                                                        type="checkbox" id="customCheck8">
+                                                    <label class="form-check-label text-muted " for="customCheck8">Gestión de Devoluciones y Reclamos<span
+                                                            class="descriopcion_subcategoria">👁️</span></label>
+                                                    <div class="description" style="display: none;">Manejar el proceso de devolución de productos defectuosos o excedentes, así como gestionar reclamos relacionados con la calidad o incumplimiento de los proveedores.
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <!-- Más subcategorías -->
+                                        </ul>
+                                    </li>
+                                    <!-- Más categorías -->
+                                    <li class="list-group-item category category-row">
+                                        <div class="category-details">
+                                            <span class="descripcion_categoria"><i
+                                                    class="bi bi-chevron-right"></i></span>
+                                            <div class="form-check">
+                                                <input class="form-check-input input-primary category-checkbox"
+                                                    type="checkbox" id="customCheckc3">
+                                                <label class="form-check-label text-muted " for="customCheckc3">Almacen
+                                                    <span class="descriopcion_subcategoria">👁️</span></label>
+                                                <div class="description" style="display: none;">o productos. Se encarga de recibir, organizar, mantener y distribuir mercancías de manera eficiente y segura. Además, el almacén es responsable de asegurar que los productos estén disponibles y en condiciones óptimas para su posterior distribución a clientes internos o externos.</div>
+                                            </div>
+                                        </div>
+
+                                        <ul class="subcategories">
+                                            <li class="list-group-item subcategory-row">
+                                                <div class="form-check">
+                                                    <input class="form-check-input input-primary subcategory-checkbox"
+                                                        type="checkbox" id="customCheck7">
+                                                    <label class="form-check-label text-muted " for="customCheck7">Recepción y Control de Inventario<span
+                                                            class="descriopcion_subcategoria">👁️</span></label>
+                                                    <div class="description" style="display: none;">Recibir mercancía, inspeccionar la calidad, cantidad y condición de los productos, registrando la entrada en el sistema de inventario.
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item subcategory-row">
+                                                <div class="form-check">
+                                                    <input class="form-check-input input-primary subcategory-checkbox"
+                                                        type="checkbox" id="customCheck8">
+                                                    <label class="form-check-label text-muted " for="customCheck8">Organización y Almacenamiento<span
+                                                            class="descriopcion_subcategoria">👁️</span></label>
+                                                    <div class="description" style="display: none;">Clasificar, etiquetar y asignar ubicaciones a los productos, manteniendo un diseño lógico y eficiente dentro del almacén.
+                                                    </div>
+                                                </div>
+                                            </li>
+                                             <li class="list-group-item subcategory-row">
+                                                <div class="form-check">
+                                                    <input class="form-check-input input-primary subcategory-checkbox"
+                                                        type="checkbox" id="customCheck8">
+                                                    <label class="form-check-label text-muted " for="customCheck8">Picking y Embalaje de Pedidos<span
+                                                            class="descriopcion_subcategoria">👁️</span></label>
+                                                    <div class="description" style="display: none;"> Seleccionar los productos solicitados, empaquetarlos adecuadamente y prepararlos para su envío o entrega.
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item subcategory-row">
+                                                <div class="form-check">
+                                                    <input class="form-check-input input-primary subcategory-checkbox"
+                                                        type="checkbox" id="customCheck8">
+                                                    <label class="form-check-label text-muted " for="customCheck8">Control de Stock y Rotación de Inventarios<span
+                                                            class="descriopcion_subcategoria">👁️</span></label>
+                                                    <div class="description" style="display: none;">Monitorear los niveles de inventario, asegurar que los productos más antiguos se utilicen primero (principio FIFO) y mantener actualizados los registros de stock.
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <!-- Más subcategorías -->
+                                        </ul>
+                                    </li>
+                                </ul>
+
+                            </div>
+                        </div>
+
+                        <div class="col-sm-2 d-flex flex-column justify-content-center">
+                            <button id="moveRightCategories" class="btn btn-primary mt-2">></button>
+                            <button id="moveLeftCategories" class="btn btn-primary mt-2">←</button>
+                        </div>
+
+                        <div class="col-sm-5">
+                            <h4>Accesos Asignados</h4>
+                            <div class="scrollable">
+                                <ul id="accesses" class="list-categoria">
+                                    <!-- Elementos de "Accesos" se mostrarán aquí -->
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+
+
+    <script>
+        $(document).ready(function () {
+            // Asignar funciones
+            $('#moveRightCategories').on('click', function () {
+                $('#categories .category-row.selected').appendTo('#accesses');
+                $('#categories .category-row.selected').removeClass('selected');
+            });
+
+            // Quitar funciones
+            $('#moveLeftCategories').on('click', function () {
+                $('#accesses .category-row.selected').appendTo('#categories');
+                $('#accesses .category-row.selected').removeClass('selected');
+            });
+
+            // Ver descripcion de Categoria
+            $('.descripcion_categoria').on('click', function () {
+                $(this).closest('.category').find('.subcategories').slideToggle();
+            });
+
+            //Ver descripcion de subcategoria
+            $('.descriopcion_subcategoria').on('click', function () {
+                $(this).closest('.form-check').find('.description').slideToggle();
+            });
+
+            $('.category-row').on('click', function () {
+                $(this).toggleClass('selected');
+                const checkbox = $(this).find('.category-checkbox');
+                checkbox.prop('checked', !checkbox.prop('checked'));
+            });
+
+            $('.subcategory-checkbox').on('change', function () {
+                var selectedSubcategories = [];
+                $('.subcategory-checkbox:checked').each(function () {
+                    selectedSubcategories.push($(this).next('label').text());
+                });
+
+                var selectedSubcategoriesList = $('#selectedSubcategories');
+                selectedSubcategoriesList.empty();
+                selectedSubcategories.forEach(function (subcategory) {
+                    selectedSubcategoriesList.append('<li>' + subcategory + '</li>');
+                });
+            });
+        });
+    </script>
+
+
+
+
+</body>
+
+</html>
+
+
+
+
+
 {% endblock %}

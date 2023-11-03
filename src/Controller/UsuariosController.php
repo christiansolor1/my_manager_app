@@ -230,9 +230,9 @@ class UsuariosController extends AbstractController
                 'apellidos' => $usuario->getApellidos(),
                 'estado' => $usuario->getEstadoCuenta()->getEstadoCuenta(),
                 'genero' => $usuario->getGenero()->getGenero(),
-                'nacimiento' => $usuario->getFechaDeNacimiento()->format('d-m-Y'),
-                'registro' => $usuario->getFechaDeRegistro()->format('d-m-Y'),
-                'acceso' => $usuario->getFechaDeAcceso()->format('d-m-Y H:i:s'),
+                'nacimiento' => $usuario->getFechaDeNacimiento()->format('d/m/Y'),
+                'registro' => $usuario->getFechaDeRegistro()->format('d/m/Y'),
+                'acceso' => $usuario->getFechaDeAcceso()->format('d/m/Y H:i:s'),
                 // Otros campos de usuario que desees mostrar
             ];
         }
