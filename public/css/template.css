@@ -89,6 +89,12 @@ body {
     background-color: #EEEEEE;
 }
 
+a.sin_subrayado {
+    text-decoration: none;
+    /* Elimina el subrayado */
+
+}
+
 /* .main-content {
     padding: 10px 20px 0px 20px;
     position: relative;
@@ -125,7 +131,7 @@ body {
 /* marco de un formulario */
 .auth-form {
     padding: 10px;
-    
+
 }
 
 .auth-header {
@@ -164,7 +170,7 @@ body {
 .card-body .rl {
     font-size: 0.85rem;
     /* background: yellow; */
-    border: 1px solid black; 
+    border: 1px solid black;
     /* font-weight: bold; */
 }
 
@@ -226,6 +232,7 @@ navbar-nav>.active>a:focus {
     position: relative;
     display: block;
     padding: 10px 15px !important;
+    text-decoration: none;
 }
 
 
@@ -297,6 +304,7 @@ navbar-nav>.active>a:focus {
 .form_login .input-group:focus {
     background: var(--sidebar-input-text-login-hover);
     /* border-color: var(--primaryColor);;
+    
     outline: 0;
     box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, .25);
     border: 1px solid black; */
@@ -764,6 +772,7 @@ table.dataTable thead th:hover {
     color: #28a745;
     margin-left: 3px;
     margin-top: 3px;
+
 }
 
 /*tamaño y ubicacion de los iconos lado derecho del top navbar*/
@@ -802,6 +811,7 @@ table.dataTable thead th:hover {
     background-color: var(--topNavbar-btn-hover);
     border-radius: 15px;
 }
+
 /* #sidebarCollapse span {
     margin: 9px;
     padding: 0px;
@@ -875,6 +885,7 @@ table.dataTable thead th:hover {
     background-color: #ffffffe6;
     color: #000000;
     border-radius: 15px;
+    text-decoration: none;
 
 }
 
@@ -888,6 +899,8 @@ table.dataTable thead th:hover {
     color: var(--sidebar-btn-text-hover-color);
     background-color: var(--sidebar-btn-hover-background);
     border-radius: 15px;
+    text-decoration: none;
+
 }
 
 /*sd_item_hover_color del icono*/
@@ -905,6 +918,7 @@ table.dataTable thead th:hover {
     position: relative;
     font-weight: 400;
     display: block;
+    text-decoration: none;
 }
 
 /*sd_icono*/
@@ -952,6 +966,7 @@ table.dataTable thead th:hover {
     -moz-border-radius: 15px;
     -ms-border-radius: 15px;
     -o-border-radius: 15px;
+    text-decoration: none;
 }
 
 /* menu del dropdown expanded */
@@ -1044,6 +1059,7 @@ footer ul li a {
     text-decoration: none;
     /* position: relative; */
     display: block;
+    
 }
 
 
