@@ -59,9 +59,10 @@
 
 
         /* Estilos CSS */
-        .descripcion_categoria {
+        .tab_categoria {
             display: inline-block;
             vertical-align: middle;
+            
         }
 
         .form-check {
@@ -72,6 +73,7 @@
 
         .description {
             display: none;
+            /* border: 11px solid black; */
         }
 
         .subcategories {
@@ -204,7 +206,7 @@
                                     <li class="list-group-item category category-row">
                                         <div class="category-details">
 
-                                            <span class="descripcion_categoria"><i
+                                            <span class="tab_categoria"><i
                                                     class="bi bi-chevron-right"></i></span>
                                             <div class="form-check">
                                                 <input class="form-check-input input-primary category-checkbox"
@@ -259,7 +261,7 @@
                                             </li>
                                             <li class="list-group-item category category-row">
                                                 <div class="category-details">
-                                                    <span class="descripcion_categoria"><i
+                                                    <span class="tab_categoria"><i
                                                             class="bi bi-chevron-right"></i></span>
                                                     <div class="form-check">
                                                         <input class="form-check-input input-primary category-checkbox"
@@ -327,7 +329,7 @@
                                     </li>
                                     <li class="list-group-item category category-row">
                                         <div class="category-details">
-                                            <span class="descripcion_categoria"><i
+                                            <span class="tab_categoria"><i
                                                     class="bi bi-chevron-right"></i></span>
                                             <div class="form-check">
                                                 <input class="form-check-input input-primary category-checkbox"
@@ -395,7 +397,7 @@
                                     <!-- Más categorías -->
                                     <li class="list-group-item category category-row">
                                         <div class="category-details">
-                                            <span class="descripcion_categoria"><i
+                                            <span class="tab_categoria"><i
                                                     class="bi bi-chevron-right"></i></span>
                                             <div class="form-check">
                                                 <input class="form-check-input input-primary category-checkbox"
@@ -497,7 +499,7 @@
             });
 
             // Ver descripcion de Categoria
-            $('.descripcion_categoria').on('click', function () {
+            $('.tab_categoria').on('click', function () {
                 $(this).closest('.category').find('.subcategories').slideToggle();
             });
 
