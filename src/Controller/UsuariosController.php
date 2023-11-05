@@ -49,9 +49,10 @@ class UsuariosController extends AbstractController
     //==================================== INSERTAR UN USUARIO
 
     #[Route('/usuarios/new_user', name: 'app_new_user')]
-    public function new_user(Request $request, UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $entityManager): JsonResponse
+    public function new_user(Request $request, UserPasswordHasherInterface $passwordHasher): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
+        
 
         $requiredFields = ['username', 'password', 'nombres', 'apellidos', 'email', 'genero', 'estado_usuario', 'fechaNacimiento', 'rol'];
         $missingData = [];
@@ -68,9 +69,12 @@ class UsuariosController extends AbstractController
         $estadoUsuario = $this->em->getRepository(EstadoCuentaUsuario::class)->find($estadoUsuarioId);
 
         $usuario = new Usuarios();
+        // Validar si 'password' existe en $data antes de intentar acceder
+        if (!isset($data['password'])) {
+            return new JsonResponse(['error' => 'El campo de contraseña es requerido.'], 400);
+        }    
 
         $hashedPassword = $passwordHasher->hashPassword($usuario, $data['password']);
-
 
         if (!$genero || !$estadoUsuario) {
             return new JsonResponse(['error' => 'El género o estado de usuario no son válidos.'], 400);
@@ -93,13 +97,21 @@ class UsuariosController extends AbstractController
         $rol = $data['rol'];
         if ($rol === 'ROLE_USER' || $rol === '') {
             //$rol = ''; // Asignar un rol vacío
-
         } else if (!in_array($rol, $allowedRoles)) {
             return new JsonResponse(['error' => 'Rol no válido.'], 400);
         } else {
             // $usuario->setRoles($rol);
             $usuario->setRoles([$rol]);
         }
+        // if ($rol === 'ROLE_USER' || $rol === '') {
+        //     //$rol = ''; // Asignar un rol vacío
+
+        // } else if (!in_array($rol, $allowedRoles)) {
+        //     return new JsonResponse(['error' => 'Rol no válido.'], 400);
+        // } else {
+        //     // $usuario->setRoles($rol);
+        //     $usuario->setRoles([$rol]);
+        // }
 
         $usuario->setUsername($data['username']);
         $usuario->setNombres($data['nombres']);
@@ -111,11 +123,151 @@ class UsuariosController extends AbstractController
         $usuario->setFechaDeNacimiento($fechaNacimiento);
         $usuario->setFechaDeRegistro($fechaRegistro);
         $usuario->setFechaDeAcceso($fechaAcceso);
-        $entityManager->persist($usuario);
-        $entityManager->flush();
+        $this->em->persist($usuario);
+        $this->em->flush();
 
         return new JsonResponse(['message' => 'Usuario creado con éxito'], 200);
         //return new JsonResponse(['error' => 'El mensaje de error específico'], 400);
+    }
+
+     //==================================== CARGAR  DATOS USUARIOS EN DATA TABLE CON PAGINACINO    
+     #[Route('/usuarios/data', name: 'app_datatable_usuarios')]
+     public function datatable_usuarios(Request $request)
+     {
+         $start = (int) $request->get('start', 0);
+         $length = (int) $request->get('length', 10);
+         $searchValue = $request->get('search')['value'] ?? '';
+     
+         $queryBuilder = $this->em->getRepository(Usuarios::class)
+             ->createQueryBuilder('u')
+             ->setFirstResult($start)
+             ->setMaxResults($length);
+     
+         if (!empty($searchValue)) {
+             $queryBuilder
+                 ->andWhere('u.nombres LIKE :searchValue')
+                 ->orWhere('u.apellidos LIKE :searchValue')
+                 ->orWhere('u.email LIKE :searchValue')
+                 ->orWhere('u.username LIKE :searchValue')
+                 ->orWhere('u.roles LIKE :searchValue')
+                 ->setParameter('searchValue', '%' . $searchValue . '%');
+         }
+     
+         $usuarios = $queryBuilder->getQuery()->getResult();
+     
+         $totalRecords = $this->em->getRepository(Usuarios::class)
+             ->createQueryBuilder('u')
+             ->select('count(u.id)');
+     
+         if (!empty($searchValue)) {
+             $totalRecords
+                 ->andWhere('u.nombres LIKE :searchValue')
+                 ->orWhere('u.apellidos LIKE :searchValue')
+                 ->orWhere('u.email LIKE :searchValue')
+                 ->orWhere('u.username LIKE :searchValue')
+                 ->orWhere('u.roles LIKE :searchValue')
+                 ->setParameter('searchValue', '%' . $searchValue . '%');
+         }
+     
+         $totalRecords = $totalRecords->getQuery()->getSingleScalarResult();
+     
+         $data = [];
+         foreach ($usuarios as $usuario) {
+             $data[] = [
+                 'id' => $usuario->getId(),
+                 'correo' => $usuario->getEmail(),
+                 'rol' => $usuario->getRoles(),
+                 'usuario' => $usuario->getUsername(),
+                 'nombres' => $usuario->getNombres(),
+                 'apellidos' => $usuario->getApellidos(),
+                 'estado' => $usuario->getEstadoCuenta()->getEstadoCuenta(),
+                 'genero' => $usuario->getGenero()->getGenero(),
+                 'nacimiento' => $usuario->getFechaDeNacimiento()->format('d/m/Y'),
+                 'registro' => $usuario->getFechaDeRegistro()->format('d/m/Y'),
+                 'acceso' => $usuario->getFechaDeAcceso()->format('d/m/Y H:i:s'),
+                 // Otros campos de usuario que desees mostrar
+             ];
+         }
+     
+         $response = [
+             'draw' => (int) $request->get('draw'),
+             'recordsTotal' => $totalRecords,
+             'recordsFiltered' => $totalRecords, // En este caso, no hay filtrado, podrías ajustarlo si aplicas filtros
+             'data' => $data,
+         ];
+     
+         return new JsonResponse($response);
+     }
+     //==================================== Actualizar usuario
+    #[Route('/usuarios/update_user', name: 'app_update_usuario')]
+    public function update_user(Request $request, UserPasswordHasherInterface $passwordHasher): JsonResponse
+    {
+        $data = json_decode($request->getContent(), true);
+        
+        $requiredFields = ['id','username', 'password', 'nombres', 'apellidos', 'email', 'genero', 'estado_usuario', 'fechaNacimiento', 'rol'];
+        $missingData = [];
+        $fechaNacimiento = new \DateTime($data['fechaNacimiento']);
+        $fechaAcceso = new \DateTime();
+
+        $generoId = $data['genero'];
+
+        $estadoUsuarioId = $data['estado_usuario'];
+
+        $genero = $this->em->getRepository(Genero::class)->find($generoId);
+
+        $estadoUsuario = $this->em->getRepository(EstadoCuentaUsuario::class)->find($estadoUsuarioId);
+
+
+        $usuario = $this->em->getRepository(Usuarios::class)->find($data['id']);
+
+
+      // Validar si 'password' existe en $data antes de intentar acceder
+        if (!isset($data['password'])) {
+            return new JsonResponse(['error' => 'El campo de contraseña es requerido.'], 400);
+        }    
+
+        if (!$genero || !$estadoUsuario) {
+            return new JsonResponse(['error' => 'El género o estado de usuario no son válidos.'], 400);
+        }
+
+        foreach ($requiredFields as $field) {
+            if (empty($data[$field])) {
+                $missingData[] = $field;
+            }
+        }
+
+        if (!empty($missingData)) {
+            return new JsonResponse(['error' => 'Faltan datos obligatorios: ' . implode(', ', $missingData)], 400);
+        }
+
+        $allowedRoles = ['ROLE_ADMIN', 'ROLE_USER', 'ROLE_INVITED'];
+        // if (!in_array($rol, $allowedRoles) && $rol !== '') {
+        //     return new JsonResponse(['error' => 'Rol no válido.'], 400);
+        // }
+        $rol = $data['rol'];
+        if ($rol === 'ROLE_USER' || $rol === '') {
+            //$rol = ''; // Asignar un rol vacío
+        } else if (!in_array($rol, $allowedRoles)) {
+            return new JsonResponse(['error' => 'Rol no válido.'], 400);
+        } else {
+            // $usuario->setRoles($rol);
+            $usuario->setRoles([$rol]);
+        }
+
+        $hashedPassword = $passwordHasher->hashPassword($usuario, $data['password']);
+
+        $usuario->setUsername($data['username']);
+        $usuario->setNombres($data['nombres']);
+        $usuario->setApellidos($data['apellidos']);
+        $usuario->setEmail($data['email']);
+        $usuario->setPassword($hashedPassword);
+        $usuario->setGenero($genero);
+        $usuario->setEstadoCuenta($estadoUsuario);
+        $usuario->setFechaDeNacimiento($fechaNacimiento);
+        $usuario->setFechaDeAcceso($fechaAcceso);
+        $this->em->flush();
+
+        return new JsonResponse(['message' => 'Usuario actualizado con éxito'], 200);
     }
 
     //==================================== ACTUALIZAR EL ESTADO DEL USUARIO
@@ -140,6 +292,34 @@ class UsuariosController extends AbstractController
 
         return new JsonResponse(['success' => 'Usuario actualizado exitosamente']);
     }
+
+    //==================================== ACTUALIZAR LA CONTRASEÑA DEL USUARIO
+
+    #[Route('/usuarios/update/password/{id}/{password}', name: 'app_update_estado_usuario')]
+    public function update_password_usuario($id, $password,UserPasswordHasherInterface $passwordHasher)
+    {
+        // Validar si 'password' existe en $data antes de intentar acceder
+        if (!isset($password)) {
+            return new JsonResponse(['error' => 'El campo de contraseña es requerido.'], 400);
+        }  
+
+        $usuario = $this->em->getRepository(Usuarios::class)->find($id);
+        if (!$usuario) {
+            return new JsonResponse(['error' => 'Usuario o estado no encontrado'], 404);
+        }
+         
+        $hashedPassword = $passwordHasher->hashPassword($usuario, $password);
+
+        $usuario->setPassword($hashedPassword);
+
+        $this->em->persist($usuario);
+        $this->em->flush();
+
+        $usuarioData = $this->em->getRepository(Usuarios::class)->find($id); // Obtener los datos actualizados del usuario
+
+        return new JsonResponse(['success' => 'Usuario actualizado exitosamente']);
+    }
+
 
     //==================================== ELIMINAR UN USUARIO
 
@@ -178,74 +358,7 @@ class UsuariosController extends AbstractController
 
     //============================================== Desarrollo ===================================================================
 
-    //==================================== paginacion data table usuarios    
-    #[Route('/usuarios/data', name: 'app_datatable_usuarios')]
-    public function datatable_usuarios(Request $request)
-    {
-        $start = (int) $request->get('start', 0);
-        $length = (int) $request->get('length', 10);
-        $searchValue = $request->get('search')['value'] ?? '';
-    
-        $queryBuilder = $this->em->getRepository(Usuarios::class)
-            ->createQueryBuilder('u')
-            ->setFirstResult($start)
-            ->setMaxResults($length);
-    
-        if (!empty($searchValue)) {
-            $queryBuilder
-                ->andWhere('u.nombres LIKE :searchValue')
-                ->orWhere('u.apellidos LIKE :searchValue')
-                ->orWhere('u.email LIKE :searchValue')
-                ->orWhere('u.username LIKE :searchValue')
-                ->orWhere('u.roles LIKE :searchValue')
-                ->setParameter('searchValue', '%' . $searchValue . '%');
-        }
-    
-        $usuarios = $queryBuilder->getQuery()->getResult();
-    
-        $totalRecords = $this->em->getRepository(Usuarios::class)
-            ->createQueryBuilder('u')
-            ->select('count(u.id)');
-    
-        if (!empty($searchValue)) {
-            $totalRecords
-                ->andWhere('u.nombres LIKE :searchValue')
-                ->orWhere('u.apellidos LIKE :searchValue')
-                ->orWhere('u.email LIKE :searchValue')
-                ->orWhere('u.username LIKE :searchValue')
-                ->orWhere('u.roles LIKE :searchValue')
-                ->setParameter('searchValue', '%' . $searchValue . '%');
-        }
-    
-        $totalRecords = $totalRecords->getQuery()->getSingleScalarResult();
-    
-        $data = [];
-        foreach ($usuarios as $usuario) {
-            $data[] = [
-                'id' => $usuario->getId(),
-                'correo' => $usuario->getEmail(),
-                'rol' => $usuario->getRoles(),
-                'usuario' => $usuario->getUsername(),
-                'nombres' => $usuario->getNombres(),
-                'apellidos' => $usuario->getApellidos(),
-                'estado' => $usuario->getEstadoCuenta()->getEstadoCuenta(),
-                'genero' => $usuario->getGenero()->getGenero(),
-                'nacimiento' => $usuario->getFechaDeNacimiento()->format('d/m/Y'),
-                'registro' => $usuario->getFechaDeRegistro()->format('d/m/Y'),
-                'acceso' => $usuario->getFechaDeAcceso()->format('d/m/Y H:i:s'),
-                // Otros campos de usuario que desees mostrar
-            ];
-        }
-    
-        $response = [
-            'draw' => (int) $request->get('draw'),
-            'recordsTotal' => $totalRecords,
-            'recordsFiltered' => $totalRecords, // En este caso, no hay filtrado, podrías ajustarlo si aplicas filtros
-            'data' => $data,
-        ];
-    
-        return new JsonResponse($response);
-    }
+   
 
 
 
@@ -448,72 +561,6 @@ class UsuariosController extends AbstractController
 
     //     return new JsonResponse($response);
     // }
-
-
-    //==================================== Actualizar usuario
-    #[Route('/usuarios/update/{id}', name: 'app_update_usuario')]
-    public function updateUsuario($id, Request $request, UserPasswordHasherInterface $passwordHasher)
-    {
-        $usuario = $this->em->getRepository(Usuarios::class)->find($id);
-
-        if (!$usuario) {
-            return new JsonResponse(['success' => false, 'message' => 'Usuario no encontrado'], 404);
-        }
-
-        $username = $request->request->get('username');
-        $nombre = $request->request->get('nombres');
-        $apellidos = $request->request->get('apellidos');
-        $email = $request->request->get('email');
-        $plaintextPassword = $request->request->get('pass');
-        $role = $request->request->get('role');
-        $gen = $request->request->get('gen');
-        $state_user = $request->request->get('state_user');
-        $fecha_nacimiento = \DateTime::createFromFormat('d-m-Y', $request->request->get('fecha_nacimiento'));
-        $fecha_acceso = new \DateTime();
-
-        // hash the password (based on the security.yaml config for the $user class)
-        $hashedPassword = $passwordHasher->hashPassword($usuario, $plaintextPassword);
-
-        $usuario->setNombres($nombre);
-        $usuario->setApellidos($apellidos);
-        $usuario->setUsername($username);
-        $usuario->setEmail($email);
-        $usuario->setPassword($hashedPassword);
-        $usuario->setRoles(json_decode($role));
-        $usuario->setGenero($gen);
-        $usuario->setEstadoCuenta($state_user);
-        $usuario->setFechaDeNacimiento($fecha_nacimiento);
-        $usuario->setFechaDeAcceso($fecha_acceso);
-
-        $this->em->flush();
-
-        return new JsonResponse(['success' => true]);
-    }
-
-    #[Route('/usuarios/update_pas/{id}/{pass}', name: 'app_update_pas_usuario')]
-    public function update_pas_usuario($id, $pass, Request $request, UserPasswordHasherInterface $passwordHasher)
-    {
-        $usuario = $this->em->getRepository(Usuarios::class)->find($id);
-
-        if (!$usuario) {
-            return new JsonResponse(['success' => false, 'message' => 'Usuario no encontrado'], 404);
-        }
-
-        $plaintextPassword = $request->request->get($pass);
-        $fecha_acceso = new \DateTime();
-
-        // hash the password (based on the security.yaml config for the $user class)
-        $hashedPassword = $passwordHasher->hashPassword($usuario, $plaintextPassword);
-
-        $usuario->setPassword($hashedPassword);
-
-        $this->em->flush();
-
-        return new JsonResponse(['success' => true]);
-    }
-
-
-
 
     // #[Route('/usuarios', name: 'app_usuarios')]
     // public function index(): Response
