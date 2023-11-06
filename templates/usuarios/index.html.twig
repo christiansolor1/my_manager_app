@@ -393,6 +393,40 @@
 		</div>
 	</div>
 </div>
+<!-- Modal info -->
+<div class="modal fade" id="modal_info_user" tabindex="-1" role="dialog" aria-labelledby="reportModalLabel"
+	aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="reportModalLabel">Detalles del Usuario</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="report-style">
+					<p><strong>ID:</strong> <span id="info_user_id"></span></p>
+					<p><strong>Usuario:</strong> <span id="info_user_username"></span></p>
+					<p><strong>Nombres:</strong> <span id="info_user_nombres"></span></p>
+					<p><strong>Apellidos:</strong> <span id="info_user_apellidos"></span></p>
+					<p><strong>Correo:</strong> <span id="info_user_email"></span></p>
+					<p><strong>Fecha de Nacimiento:</strong> <span id="info_user_fechaNacimiento"></span></p>
+					<p><strong>Género:</strong> <span id="info_user_genero"></span></p>
+					<p><strong>Estado:</strong> <span id="info_user_estado"></span></p>
+					<p><strong>Rol:</strong> <span id="info_user_rol"></span></p>
+					<p><strong>Fecha de Registro:</strong> <span id="info_user_fechaRegistro"></span></p>
+					<p><strong>Fecha de Acceso:</strong> <span id="info_user_fechaAcceso"></span></p>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+				<button type="button" class="btn btn-primary" onclick="window.print()">Imprimir</button>
+			</div>
+		</div>
+	</div>
+</div>
+
 <script>
 	// window.onload = function () {
 	// //alert("Pagina cargada");
@@ -504,9 +538,9 @@
 	$(document).ready(function () {
 
 		var tablaUsuarios = $('#dataTable_usuarios').DataTable({
-			"language": {
-				"url": "https://cdn.datatables.net/plug-ins/1.11.5/i18n/Spanish.json"
-			},
+			// "language": {
+			// 	"url": "https://cdn.datatables.net/plug-ins/1.11.5/i18n/Spanish.json"
+			// },
 			// Otras opciones de tu DataTable
 			"processing": true,
 			"serverSide": true,
@@ -608,7 +642,7 @@ meta.row + 1
 						return `
 								<div class="btn-toolbar" role="toolbar">
 									<div class="btn-group mr-2" role="group">
-										<a class="btn btn-sm btn-info datatable_btn_detail" href="#" data-toggle="modal" data-target="#modalInfoUsuario" title="Detalles del Usuario"></a>
+										<a class="btn btn-sm btn-info datatable_btn_detail" href="#" data-id="${data.id}" data-username="${data.usuario}" title="Detalles del Usuario"></a>
 									</div>
 
 									<div class="btn-group mr-2" role="group">
@@ -670,7 +704,63 @@ meta.row + 1
 	});
 
 
-	// /////////////////////////////////////////////////////////// SHORTCUTS ////////////////////////////////////////////////////////////////////////////
+	//======================================================= MODAL INFO DE USUARIO=============================================================
+
+	$(document).on('click', '.datatable_btn_detail', function (e) {
+		e.preventDefault();
+
+		const id = $(this).data('id');
+		const username = $(this).data('username');
+		// Obtener la fila específica al hacer clic en el botón
+		const fila = $(this).closest('tr');
+
+		// Encontrar el índice de la fila en el DataTable
+		const index = $('#dataTable_usuarios').DataTable().row(fila).index();
+		const rowData = $('#dataTable_usuarios').DataTable().row(index).data();
+
+		const info_user_id = rowData.id;
+		const info_user_username = rowData.usuario;
+		const info_user_nombres = rowData.nombres;
+		const info_user_apellidos = rowData.apellidos;
+		const info_user_email = rowData.correo;
+		const info_user_fechaNacimiento = rowData.nacimiento;
+		const info_user_genero = rowData.genero;
+		const info_user_estado = rowData.estado;
+		const info_user_rol = rowData.rol;
+		const info_user_registro = rowData.registro;
+		const info_user_acceso = rowData.acceso;
+
+
+		let generoValue;
+
+		if (info_user_genero === 'Masculino') {
+			generoValue = 1;
+		} else if (info_user_genero === 'Femenino') {
+			generoValue = 2;
+		}
+
+		let estadoValue;
+
+		if (info_user_estado === 'Activo') {
+			estadoValue = 1;
+		} else if (info_user_estado === 'Inactivo') {
+			estadoValue = 2;
+		}
+
+		$('#info_user_id').text(id);
+		$('#info_user_username').text(username);
+        $('#info_user_nombres').text(info_user_nombres);
+		$('#info_user_apellidos').text(info_user_apellidos);
+        $('#info_user_email').text(info_user_email);
+		$('#info_user_fechaNacimiento').text(info_user_fechaNacimiento);
+        $('#info_user_genero').text(info_user_genero);
+		$('#info_user_estado').text(info_user_estado);
+        $('#info_user_rol').text(info_user_rol);
+        $('#info_user_fechaRegistro').text(info_user_registro);
+		$('#info_user_fechaAcceso').text(info_user_acceso);
+		
+		$('#modal_info_user').modal('show');
+	});
 
 	// ====================================================== EDITAR USUARIO  ==================================================================
 
@@ -884,6 +974,7 @@ meta.row + 1
 			}
 		});
 	}
+
 	// ====================================================== EDITAR CONTRASEÑA USUARIO  ==================================================================
 
 	$(document).on('click', '.datatable_btn_pass', function (e) {
@@ -931,7 +1022,7 @@ meta.row + 1
 									} else {
 										console.error(
 											'Error al actualizar la contraseña del usuario'
-											);
+										);
 									}
 								}
 							},
@@ -953,7 +1044,7 @@ meta.row + 1
 		});
 	})
 
-	// ====================================================== EliminarUsuario  ==================================================================
+	// ====================================================== ELIMINAR USUARIO  ==================================================================
 
 	$(document).on('click', '.datatable_btn_delete', function (e) {
 		e.preventDefault();
@@ -995,8 +1086,4 @@ meta.row + 1
 	}
 
 	// ======================================================== validar input de contraseñas ============================================================
-	// function validacionNewUsuario() {}
-
-	// Evento que se dispara al escribir en el campo de confirmación
-	// confirmPasswordField.addEventListener('input', verificarCoincidencia);
 </script>{% endblock %}
