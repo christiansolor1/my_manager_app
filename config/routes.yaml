@@ -3,3 +3,13 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
+
+generate_pdf:
+    path: /generate-pdf
+    controller: 'App\Controller\MyPdfController::generatePdfAction'
+preview_pdf:
+    path: /generar-pdf
+    controller: App\Controller\MyPdfController::previewPdfAction
+
+
+

@@ -421,7 +421,8 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-				<button type="button" class="btn btn-primary" onclick="window.print()">Imprimir</button>
+				<button type="button" class="btn btn-primary" onclick="mostrarPdf()" id="imprimirPDF">Imprimir</button>
+				
 			</div>
 		</div>
 	</div>
@@ -1085,5 +1086,13 @@ meta.row + 1
 		});
 	}
 
-	// ======================================================== validar input de contraseñas ============================================================
+	// ======================================================== PDF ============================================================
+
+	function mostrarPdf() {
+        var url = "{{ path('preview_pdf') }}";
+        window.open(url, '_blank');
+    }
+
+	
+
 </script>{% endblock %}
